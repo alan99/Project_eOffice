@@ -14,7 +14,7 @@ import javax.validation.constraints.Email;
 @Entity
 @Table(name = "eoffice_emp")
 public class Emp {
-	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Id @GeneratedValue
 	private long empId;
 	
 	@Column
@@ -30,20 +30,11 @@ public class Emp {
 	private int contactNo;
 	
 	@ManyToOne
-	@JoinColumn(name = "deptId")
+	@JoinColumn(name = "deptId", nullable = true)
 	private Dept dept;
 
+	public Emp() {}
 	
-	public Emp(long empId, String f_Name, String l_Name, @Email String emailId, int contactNo, Dept dept) {
-		super();
-		this.empId = empId;
-		this.f_Name = f_Name;
-		this.l_Name = l_Name;
-		this.emailId = emailId;
-		this.contactNo = contactNo;
-		this.dept = dept;
-	}
-
 	public Emp(String f_Name, String l_Name, @Email String emailId, int contactNo, Dept dept) {
 		super();
 		this.f_Name = f_Name;
@@ -52,8 +43,23 @@ public class Emp {
 		this.contactNo = contactNo;
 		this.dept = dept;
 	}
-	public Emp() {}
 
+	public Emp(String f_Name, String l_Name, @Email String emailId, int contactNo) {
+		super();
+		this.f_Name = f_Name;
+		this.l_Name = l_Name;
+		this.emailId = emailId;
+		this.contactNo = contactNo;
+	}
+
+//	public Emp(long empId, String f_Name, String l_Name, @Email String emailId, int contactNo) {
+//		super();
+//		this.empId = empId;
+//		this.f_Name = f_Name;
+//		this.l_Name = l_Name;
+//		this.emailId = emailId;
+//		this.contactNo = contactNo;
+//	}
 
 	public long getEmpId() {
 		return empId;
@@ -101,6 +107,12 @@ public class Emp {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
+	}
+
+	@Override
+	public String toString() {
+		return "Emp [empId=" + empId + ", f_Name=" + f_Name + ", l_Name=" + l_Name + ", emailId=" + emailId
+				+ ", contactNo=" + contactNo + "]";
 	}
 	
 	

@@ -12,6 +12,8 @@ import com.alan.model.*;
 
 @RestController
 public class AdminRestController {
+	
+	
 // create employee
 //	create dept
 	@Autowired
@@ -21,13 +23,23 @@ public class AdminRestController {
 	private DeptRepo deptRepo;
 	
 	@GetMapping("/emps")
-	List<Emp> findAllEmps(){
+	public List<Emp> findAllEmps(){
 		return empRepo.findAll();
 	}
 	
 	@GetMapping("/depts")
-	List<Dept> findAllDepts(){
+	public List<Dept> findAllDepts(){
 		return deptRepo.findAll();
+	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/emps/{deptName}")
+	public Emp newEmp(@RequestBody Emp emp, @PathVariable String deptName) {
+		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getEmailId(), emp.getContactNo());
+		Dept dept = deptRepo.findByDeptName(deptName);
+		newEmp.setDept(dept);
+		empRepo.save(newEmp);
+		return newEmp;
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
@@ -35,6 +47,9 @@ public class AdminRestController {
 	Emp newEmp(@RequestBody Emp emp) {
 		return empRepo.save(emp);
 	}
+	
+	
+	
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/depts")

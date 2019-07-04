@@ -1,7 +1,6 @@
 package com.alan.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,37 +15,45 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "eoffice_dept")
 public class Dept {
-	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private int deptId;
 	
 	@Column
 	private String deptName;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="empId", referencedColumnName="empId")
-	private Collection<Emp> emps=new ArrayList<>();
+//	@OneToMany(cascade=CascadeType.ALL)
+//	@JoinColumn(name="empId", nullable = true)
+//	private Set<Emp> emps=new HashSet<>();
 	
 	
+	public Dept() {}
 	
-	public Dept(String deptName, Collection<Emp> emps) {
-		super();
-		this.deptName = deptName;
-		this.emps = emps;
-	}
+//	public Dept(String deptName, Set<Emp> emps) {
+//		super();
+//		this.deptName = deptName;
+//		this.emps = emps;
+//	}
 
+	
 	public Dept(String deptName) {
 		super();
 		this.deptName = deptName;
 	}
-	public Dept() {}
+	
 
-	public Collection<Emp> getEmps() {
-		return emps;
-	}
+//	public Dept(int deptId, String deptName) {
+//		super();
+//		this.deptId = deptId;
+//		this.deptName = deptName;
+//	}
 
-	public void setEmps(Collection<Emp> emps) {
-		this.emps = emps;
-	}
+//	public Set<Emp> getEmps() {
+//		return emps;
+//	}
+//
+//	public void setEmps(Set<Emp> emps) {
+//		this.emps = emps;
+//	}
 
 	public int getDeptId() {
 		return deptId;

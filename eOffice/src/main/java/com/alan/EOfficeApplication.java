@@ -10,15 +10,18 @@ import com.alan.model.*;
 
 @SpringBootApplication
 public class EOfficeApplication {
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(EOfficeApplication.class, args);
 	}
 
-//	@Bean
-//	CommandLineRunner unutualuzeDB(EmpRepo empRepo) {
-//		return args->{
-//			empRepo.save(new Emp("Alan", "Chang", "alan@gmail.com", 1234, new Dept("R&D")));
-//		};
-//	}
+	@Bean
+	CommandLineRunner unutualuzeDB(DeptRepo deptRepo, EmpRepo empRepo) {
+		return args->{			
+			Dept d1 = new Dept("RD");
+			deptRepo.save(d1);
+			deptRepo.save(new Dept("Sales"));
+			empRepo.save(new Emp("alan", "ccc", "aaa@am.com", 123, d1));
+		};
+	}
 }
