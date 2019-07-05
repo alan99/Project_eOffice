@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alan.config.JwtTokenUtil;
+import com.alan.dao.UserDao;
+import com.alan.model.DAOUser;
 import com.alan.model.JwtRequest;
 import com.alan.model.JwtResponse;
 import com.alan.model.UserDTO;
@@ -48,6 +50,11 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ResponseEntity<?> editUser(@RequestBody UserDTO user) throws Exception {	
+		return ResponseEntity.ok(userDetailsService.edit(user));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
