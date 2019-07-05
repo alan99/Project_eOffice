@@ -20,6 +20,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -40,6 +43,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	public DAOUser save(UserDTO user, Emp emp) {
 		DAOUser newUser = new DAOUser();
+		mailService.autoSendingEmail(emp, user);
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setEmp(emp);

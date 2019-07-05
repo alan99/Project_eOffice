@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alan.config.JwtTokenUtil;
-import com.alan.dao.UserDao;
-import com.alan.model.DAOUser;
 import com.alan.model.JwtRequest;
 import com.alan.model.JwtResponse;
 import com.alan.model.UserDTO;

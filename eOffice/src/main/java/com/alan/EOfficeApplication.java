@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import com.alan.dao.*;
 import com.alan.model.*;
 import com.alan.service.JwtUserDetailsService;
+import com.alan.service.MailService;
 
 @SpringBootApplication
 public class EOfficeApplication {
@@ -22,9 +23,11 @@ public class EOfficeApplication {
 			Dept d1 = new Dept("RD");
 			deptRepo.save(d1);
 			deptRepo.save(new Dept("Sales"));
-			Emp emp = new Emp("alan", "ccc", 123, d1);
+			Emp emp = new Emp("Chih-Lun", "Chang", 12345678, d1);
 			empRepo.save(emp);
-			userDetailsService.save(new UserDTO("alan@ga.com", "1234"), emp);
+			UserDTO user = new UserDTO("ofcadmncog@gmail.com", "Cogent@123");
+			userDetailsService.save(user, emp);
+//			mailService.autoSendingEmail(emp, user);
 		};
 	}
 }
