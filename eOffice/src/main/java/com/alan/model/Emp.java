@@ -8,13 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
+//import javax.validation.constraints.Email;
 
 
 @Entity
 @Table(name = "eoffice_emp")
 public class Emp {
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long empId;
 	
 	@Column
@@ -23,8 +23,8 @@ public class Emp {
 	@Column
 	private String l_Name;
 	
-	@Column @Email
-	private String emailId;
+//	@Column @Email
+//	private String emailId;
 	
 	@Column
 	private int contactNo;
@@ -35,31 +35,28 @@ public class Emp {
 
 	public Emp() {}
 	
-	public Emp(String f_Name, String l_Name, @Email String emailId, int contactNo, Dept dept) {
-		super();
-		this.f_Name = f_Name;
-		this.l_Name = l_Name;
-		this.emailId = emailId;
-		this.contactNo = contactNo;
-		this.dept = dept;
-	}
-
-	public Emp(String f_Name, String l_Name, @Email String emailId, int contactNo) {
-		super();
-		this.f_Name = f_Name;
-		this.l_Name = l_Name;
-		this.emailId = emailId;
-		this.contactNo = contactNo;
-	}
-
-//	public Emp(long empId, String f_Name, String l_Name, @Email String emailId, int contactNo) {
+//	public Emp(String f_Name, String l_Name, @Email String emailId, int contactNo, Dept dept) {
 //		super();
-//		this.empId = empId;
 //		this.f_Name = f_Name;
 //		this.l_Name = l_Name;
 //		this.emailId = emailId;
 //		this.contactNo = contactNo;
+//		this.dept = dept;
 //	}
+	public Emp(String f_Name, String l_Name, int contactNo, Dept dept) {
+		super();
+		this.f_Name = f_Name;
+		this.l_Name = l_Name;
+		this.contactNo = contactNo;
+		this.dept = dept;
+	}
+	public Emp(String f_Name, String l_Name, int contactNo) {
+		super();
+		this.f_Name = f_Name;
+		this.l_Name = l_Name;
+		this.contactNo = contactNo;
+	}
+
 
 	public long getEmpId() {
 		return empId;
@@ -85,14 +82,6 @@ public class Emp {
 		this.l_Name = l_Name;
 	}
 
-	public String getEmailId() {
-		return emailId;
-	}
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
 	public int getContactNo() {
 		return contactNo;
 	}
@@ -109,11 +98,6 @@ public class Emp {
 		this.dept = dept;
 	}
 
-	@Override
-	public String toString() {
-		return "Emp [empId=" + empId + ", f_Name=" + f_Name + ", l_Name=" + l_Name + ", emailId=" + emailId
-				+ ", contactNo=" + contactNo + "]";
-	}
 	
 	
 }

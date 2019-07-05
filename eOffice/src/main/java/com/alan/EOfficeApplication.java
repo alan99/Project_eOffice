@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.alan.dao.*;
 import com.alan.model.*;
+import com.alan.service.JwtUserDetailsService;
 
 @SpringBootApplication
 public class EOfficeApplication {
@@ -16,12 +17,14 @@ public class EOfficeApplication {
 	}
 
 	@Bean
-	CommandLineRunner unutualuzeDB(DeptRepo deptRepo, EmpRepo empRepo) {
+	CommandLineRunner unutualuzeDB(DeptRepo deptRepo, EmpRepo empRepo, JwtUserDetailsService userDetailsService) {
 		return args->{			
 			Dept d1 = new Dept("RD");
 			deptRepo.save(d1);
 			deptRepo.save(new Dept("Sales"));
-			empRepo.save(new Emp("alan", "ccc", "aaa@am.com", 123, d1));
+			Emp emp = new Emp("alan", "ccc", 123, d1);
+			empRepo.save(emp);
+			userDetailsService.save(new UserDTO("alan@ga.com", "1234"), emp);
 		};
 	}
 }

@@ -2,21 +2,21 @@ package com.alan.model;
 
 import java.util.*;
 
-import javax.persistence.CascadeType;
+//import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "eoffice_dept")
 public class Dept {
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private int deptId;
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long deptId;
 	
 	@Column
 	private String deptName;
@@ -55,11 +55,11 @@ public class Dept {
 //		this.emps = emps;
 //	}
 
-	public int getDeptId() {
+	public long getDeptId() {
 		return deptId;
 	}
 
-	public void setDeptId(int deptId) {
+	public void setDeptId(long deptId) {
 		this.deptId = deptId;
 	}
 
