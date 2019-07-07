@@ -9,27 +9,28 @@ import org.springframework.web.bind.annotation.*;
 
 import com.alan.dao.DeptRepo;
 import com.alan.dao.EmpRepo;
+import com.alan.dao.TaskRepo;
 import com.alan.dao.UserDao;
 import com.alan.model.*;
 import com.alan.service.JwtUserDetailsService;
+import com.alan.service.TaskService;
 
 @RestController
 public class AdminRestController {
-	
-	
-// create employee
-//	create dept
+
 	@Autowired
 	private EmpRepo empRepo;
-	
 	@Autowired
 	private DeptRepo deptRepo;
-	
 	@Autowired
 	private UserDao userDao;
-	
+	@Autowired
+	private TaskRepo taskRepo;
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
+	@Autowired
+	private TaskService taskService;
+	
 	
 	@GetMapping("/emps")
 	public List<Emp> findAllEmps(){
@@ -42,9 +43,9 @@ public class AdminRestController {
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/depts/register-emp/{deptName}")
-	public Emp newEmp(@RequestBody Emp emp, @PathVariable String deptName) {
-		Dept dept = deptRepo.findByDeptName(deptName);
+	@PostMapping("/depts/register-emp")
+	public Emp newEmp(@RequestBody Emp emp /*, @PathVariable  String deptName*/) {
+		Dept dept = deptRepo.findByDeptName(emp.getDept().getDeptName());
 		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo());
 		newEmp.setDept(dept);
 		empRepo.save(newEmp);
@@ -56,6 +57,18 @@ public class AdminRestController {
 	public ResponseEntity<?> newUser(@RequestBody UserDTO user, @PathVariable long empId) throws Exception {
 		Emp emp= empRepo.findById(empId).orElse(null);
 		return ResponseEntity.ok(userDetailsService.save(user, emp));
+	}
+	
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/admin/assign-task")
+	public String assignTask(@RequestBody Task task){
+		Emp leader = empRepo.findById(task.getLeader().getEmpId()).orElse(null);
+		Emp emp= empRepo.findById(task.getEmp().getEmpId()).orElse(null);
+		Task newTask = new Task(task.getTaskName(), task.getTaskText(), task.getStartDate(), task.getEndDate());
+		taskService.assignTask(newTask, leader, emp);
+		
+		return "Delivered!";
 	}
 	
 	

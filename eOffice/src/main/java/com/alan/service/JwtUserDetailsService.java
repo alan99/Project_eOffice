@@ -17,10 +17,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	@Autowired
 	private UserDao userDao;
-
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
-	
 	@Autowired
 	private MailService mailService;
 
@@ -43,9 +41,20 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	public DAOUser save(UserDTO user, Emp emp) {
 		DAOUser newUser = new DAOUser();
-		mailService.autoSendingEmail(emp, user);
+		
+		String receiver = user.getUsername();
+		String subject = "Welcome on-board, Mr " + emp.getF_Name() + " " + emp.getL_Name();
+		String content = 
+				"Welcome to on-Board into E-office Corp.\n" + 
+				"Welcome Mr " + emp.getF_Name()+ ", your details as below:-\n" + 
+				"empId:" + emp.getEmpId() + " \n" + 
+				"Loginid:" + user.getUsername() +" \n" + 
+				"Password:" + user.getPassword() + " from Users\n" ;
+		
+		mailService.autoSendingEmail(receiver, subject, content);
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		newUser.setRole(user.getRole());
 		newUser.setEmp(emp);
 		return userDao.save(newUser);
 	}
