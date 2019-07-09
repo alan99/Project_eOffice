@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.alan.dao.DeptRepo;
 import com.alan.dao.EmpRepo;
+import com.alan.dao.RoomTicketRepo;
 import com.alan.dao.TaskRepo;
 import com.alan.dao.UserDao;
 import com.alan.model.*;
 import com.alan.service.JwtUserDetailsService;
+import com.alan.service.RoomService;
 import com.alan.service.TaskService;
 
 @RestController
@@ -30,6 +32,10 @@ public class AdminRestController {
 	private JwtUserDetailsService userDetailsService;
 	@Autowired
 	private TaskService taskService;
+	@Autowired
+	private RoomTicketRepo roomTicketRepo;
+	@Autowired
+	private RoomService roomService;
 	
 	
 	@GetMapping("/emps")
@@ -69,6 +75,16 @@ public class AdminRestController {
 		taskService.assignTask(newTask, leader, emp);
 		
 		return "Delivered!";
+	}
+	
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/admin/respond-room-reservation")
+	public String respondRoomReservation(@RequestBody RoomTicket ticket){
+		RoomTicket updatedTicket = roomTicketRepo.findById(ticket.getTicketId()).orElse(null);
+		roomService.adminUpdate(updatedTicket, ticket.getStatus());
+		
+		return "Status updated!";
 	}
 	
 	
