@@ -56,8 +56,8 @@ public class EmpRestController {
 		if (room == null) {
 			return "There is no this room. Please type again.";
 		} else {
-//			boolean availability = roomService.checkAvailability(ticket.getRoom(), ticket.getStartTime(), ticket.getEndTime());
-			boolean availability = true;
+			boolean availability = roomService.checkAvailability(room, ticket.getStartTime(), ticket.getEndTime());
+//			boolean availability = true;
 			if (!availability) {
 				return "The room is unavailable. Please try the other.";
 			} else {
