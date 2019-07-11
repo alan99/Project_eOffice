@@ -15,12 +15,16 @@ public class Room {
 	
 	@Column
 	private String roomName;
+	
+	@Column
+	private String roomType;
 
 	public Room() {}
 
-	public Room(String roomName) {
+	public Room(String roomName, String roomType) {
 		super();
 		this.roomName = roomName;
+		this.roomType = roomType;
 	}
 
 	public long getRoomId() {
@@ -37,6 +41,14 @@ public class Room {
 
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
+	}
+
+	public String getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
 	}
 	
 	

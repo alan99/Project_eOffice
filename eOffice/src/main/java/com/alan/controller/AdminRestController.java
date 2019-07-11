@@ -48,8 +48,20 @@ public class AdminRestController {
 		return deptRepo.findAll();
 	}
 	
+	@GetMapping("/tasks")
+	public List<Task> findAllTasks(){
+		return taskRepo.findAll();
+	}
+	
+	@GetMapping("/tickets")
+	public List<RoomTicket> findAllTickets(){
+		return roomTicketRepo.findAll();
+	}
+	
+	//========================================================================================
+	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/depts/register-emp")
+	@PostMapping("/admin/register-emp")
 	public Emp newEmp(@RequestBody Emp emp /*, @PathVariable  String deptName*/) {
 		Dept dept = deptRepo.findByDeptName(emp.getDept().getDeptName());
 		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo());
@@ -88,13 +100,16 @@ public class AdminRestController {
 	}
 	
 	
+	//========================================================================================
+	
+	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/depts")
+	@PostMapping("/admin/add-dept")
 	Dept newDept(@RequestBody Dept dept) {
 		return deptRepo.save(dept);
 	}
 	
-	@GetMapping("/emps/{empId}")
+	@GetMapping("/admin/check-emp/{empId}")
 	public String findEmpById(@PathVariable Long empId){
 		Emp emp= empRepo.findById(empId).orElse(null);
 		if (emp == null)
@@ -103,7 +118,7 @@ public class AdminRestController {
 			return "Employee " + empId + " is " + emp.getF_Name() + " " + emp.getL_Name();
 	}
 	
-	@GetMapping("/depts/{deptId}")
+	@GetMapping("/admin/check-dept/{deptId}")
 	public String findDeptById(@PathVariable int deptId){
 		Dept dept= deptRepo.findById((long) deptId).orElse(null);
 		if (dept == null)
@@ -112,7 +127,7 @@ public class AdminRestController {
 			return "Department " + deptId + " is " + dept.getDeptName();
 	}
 	
-	@PutMapping("/emps/{empId}")
+	@PutMapping("/admin/update-emp/{empId}")
 	public String updateEmp(@RequestBody Emp emp, @PathVariable Long empId) {
 		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo(), emp.getDept());
 		newEmp.setEmpId(empId);
@@ -120,7 +135,7 @@ public class AdminRestController {
 		return "The information of employee " + empId + " is updated.";
 	}
 	
-	@PutMapping("/depts/{deptId}")
+	@PutMapping("/admin/update-dept/{deptId}")
 	public String updateDept(@RequestBody Dept dept, @PathVariable Long deptId) {
 		Dept newDept = new Dept(dept.getDeptName());
 		newDept.setDeptId(deptId);
@@ -128,7 +143,7 @@ public class AdminRestController {
 		return "The information of employee " + deptId + " is updated.";
 	}
 	
-	@DeleteMapping("/emps/{empId}")
+	@DeleteMapping("/admin/delete-emp/{empId}")
 	public String deleteEmpById(@PathVariable Long empId) {
 		Emp emp = empRepo.findById(empId).orElse(null);
 		if (emp == null)

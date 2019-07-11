@@ -26,11 +26,11 @@ public class RoomTicket {
 	private Room room;
 	
 	@Column
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
 	private Date startTime;
 	
 	@Column
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
 	private Date endTime;
 	
 	@ManyToOne
@@ -52,8 +52,8 @@ public class RoomTicket {
 	public RoomTicket(Date startTime, Date endTime, String description){
 		super();
 //		this.room = room;
-		this.startTime = startTime;// new SimpleDateFormat("MM-dd hh k").parse(startTime);
-		this.endTime = endTime; //new SimpleDateFormat("MM-dd hh k").parse(endTime);
+		this.startTime = startTime;
+		this.endTime = endTime;
 //		this.emp = emp;
 //		this.admin = admin;
 		this.description = description;

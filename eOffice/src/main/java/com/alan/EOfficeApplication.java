@@ -34,7 +34,7 @@ public class EOfficeApplication {
 			UserDTO user2 = new UserDTO("alan.2nd.temp@gmail.com", "1234", "EMP");
 			userDetailsService.save(user2, emp2);
 //			mailService.autoSendingEmail(emp, user);
-			Room room = new Room("Training Room");
+			Room room = new Room("Big Room", "Training");
 			roomRepo.save(room);
 		};
 	}

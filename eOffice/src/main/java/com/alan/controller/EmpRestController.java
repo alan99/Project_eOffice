@@ -24,10 +24,6 @@ import com.alan.service.TaskService;
 public class EmpRestController {
 	@Autowired
 	private EmpRepo empRepo;
-//	@Autowired
-//	private DeptRepo deptRepo;
-//	@Autowired
-//	private UserDao userDao;
 	@Autowired
 	private TaskRepo taskRepo;
 	@Autowired
@@ -57,7 +53,7 @@ public class EmpRestController {
 			return "There is no this room. Please type again.";
 		} else {
 			boolean availability = roomService.checkAvailability(room, ticket.getStartTime(), ticket.getEndTime());
-//			boolean availability = true;
+
 			if (!availability) {
 				return "The room is unavailable. Please try the other.";
 			} else {
@@ -74,9 +70,6 @@ public class EmpRestController {
 				return "Request Delivered!";
 			}
 		}
-//		Task updatedTask = taskRepo.findById(task.getTaskId()).orElse(null);
-//		updatedTask.setTaskStatus(task.getTaskStatus());
-//		taskService.respondTask(updatedTask);
 		
 		
 	}
