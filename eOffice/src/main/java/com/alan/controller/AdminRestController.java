@@ -15,10 +15,12 @@ import com.alan.dao.TaskRepo;
 import com.alan.dao.UserDao;
 import com.alan.model.*;
 import com.alan.service.JwtUserDetailsService;
-import com.alan.service.MeetingService;
+import com.alan.service.AdminService;
+import com.alan.service.EmpService;
 import com.alan.service.TaskService;
 
 @RestController
+@RequestMapping("/admin")
 public class AdminRestController {
 
 	@Autowired
@@ -32,14 +34,16 @@ public class AdminRestController {
 	@Autowired
 	private LeaveMeetingRepo leaveMeetingRepo;
 	@Autowired
+	private RoomTicketRepo roomTicketRepo;
+	
+	@Autowired
 	private JwtUserDetailsService userDetailsService;
 	@Autowired
 	private TaskService taskService;
 	@Autowired
-	private RoomTicketRepo roomTicketRepo;
+	private EmpService empService;
 	@Autowired
-	private MeetingService meetingService;
-	
+	private AdminService adminService;
 	
 	@GetMapping("/emps")
 	public List<Emp> findAllEmps(){
@@ -64,7 +68,7 @@ public class AdminRestController {
 	//========================================================================================
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/admin/register-emp")
+	@PostMapping("/register-emp")
 	public Emp newEmp(@RequestBody Emp emp /*, @PathVariable  String deptName*/) {
 		Dept dept = deptRepo.findByDeptName(emp.getDept().getDeptName());
 		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo());
@@ -82,7 +86,7 @@ public class AdminRestController {
 	
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/admin/assign-task")
+	@PostMapping("/assign-task")
 	public String assignTask(@RequestBody Task task){
 		Emp leader = empRepo.findById(task.getLeader().getEmpId()).orElse(null);
 		Emp emp= empRepo.findById(task.getEmp().getEmpId()).orElse(null);
@@ -94,34 +98,34 @@ public class AdminRestController {
 	
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/admin/respond-room-reservation")
+	@PostMapping("/respond-room-reservation")
 	public String respondRoomReservation(@RequestBody RoomTicket ticket){
 		RoomTicket updatedTicket = roomTicketRepo.findById(ticket.getTicketId()).orElse(null);
-		meetingService.adminUpdate(updatedTicket, ticket.getStatus());
+		adminService.adminUpdate(updatedTicket, ticket.getStatus());
 		
 		return "Status updated!";
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/admin/respond-emp-leave")
+	@PostMapping("/respond-emp-leave")
 	public String respondEmpLeave(@RequestBody LeaveMeetingForm form){
 		LeaveMeetingForm updatedForm = leaveMeetingRepo.findById(form.getFormId()).orElse(null);
 		updatedForm.setRespond(form.getRespond());
 		leaveMeetingRepo.save(updatedForm);
 		String msg = "Your request for leaving is " + updatedForm.getRespond();
-		meetingService.message(updatedForm, msg, updatedForm.getEmp());
+		empService.message(updatedForm, msg, updatedForm.getEmp());
 		return "Respond Sent!";
 	}
 	//========================================================================================
 	
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/admin/add-dept")
+	@PostMapping("/add-dept")
 	Dept newDept(@RequestBody Dept dept) {
 		return deptRepo.save(dept);
 	}
 	
-	@GetMapping("/admin/check-emp/{empId}")
+	@GetMapping("/check-emp/{empId}")
 	public String findEmpById(@PathVariable Long empId){
 		Emp emp= empRepo.findById(empId).orElse(null);
 		if (emp == null)
@@ -130,7 +134,7 @@ public class AdminRestController {
 			return "Employee " + empId + " is " + emp.getF_Name() + " " + emp.getL_Name();
 	}
 	
-	@GetMapping("/admin/check-dept/{deptId}")
+	@GetMapping("/check-dept/{deptId}")
 	public String findDeptById(@PathVariable int deptId){
 		Dept dept= deptRepo.findById((long) deptId).orElse(null);
 		if (dept == null)
@@ -139,7 +143,7 @@ public class AdminRestController {
 			return "Department " + deptId + " is " + dept.getDeptName();
 	}
 	
-	@PutMapping("/admin/update-emp/{empId}")
+	@PutMapping("/update-emp/{empId}")
 	public String updateEmp(@RequestBody Emp emp, @PathVariable Long empId) {
 		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo(), emp.getDept());
 		newEmp.setEmpId(empId);
@@ -147,7 +151,7 @@ public class AdminRestController {
 		return "The information of employee " + empId + " is updated.";
 	}
 	
-	@PutMapping("/admin/update-dept/{deptId}")
+	@PutMapping("/update-dept/{deptId}")
 	public String updateDept(@RequestBody Dept dept, @PathVariable Long deptId) {
 		Dept newDept = new Dept(dept.getDeptName());
 		newDept.setDeptId(deptId);
@@ -155,7 +159,7 @@ public class AdminRestController {
 		return "The information of employee " + deptId + " is updated.";
 	}
 	
-	@DeleteMapping("/admin/delete-emp/{empId}")
+	@DeleteMapping("/delete-emp/{empId}")
 	public String deleteEmpById(@PathVariable Long empId) {
 		Emp emp = empRepo.findById(empId).orElse(null);
 		if (emp == null)

@@ -3,7 +3,6 @@ package com.alan.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alan.dao.EmpRepo;
 import com.alan.dao.TaskRepo;
 import com.alan.dao.UserDao;
 import com.alan.model.*;
