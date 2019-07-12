@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.alan.dao.RoomTicketRepo;
 import com.alan.dao.UserDao;
+import com.alan.model.Emp;
+import com.alan.model.LeaveMeetingForm;
 import com.alan.model.Room;
 import com.alan.model.RoomTicket;
 
 @Service
 @Repository
-public class RoomService {
+public class MeetingService {
     
     @Autowired
     private RoomTicketRepo roomTicketRepo;
@@ -58,5 +60,12 @@ public class RoomService {
 		String content = "Please check";
 		
 		mailService.autoSendingEmail(receiver, subject, content);
+	}
+	
+	public void message(LeaveMeetingForm form, String msg, Emp receive) {
+		String receiver = userDao.findByEmp(receive).getUsername();
+		String subject = form.getLeaveType() + " " + form.getEmp().getF_Name() + " " + form.getEmp().getL_Name();
+		
+		mailService.autoSendingEmail(receiver, subject, msg);
 	}
 }

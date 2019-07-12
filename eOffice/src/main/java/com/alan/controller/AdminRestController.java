@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import com.alan.dao.DeptRepo;
 import com.alan.dao.EmpRepo;
+import com.alan.dao.LeaveMeetingRepo;
 import com.alan.dao.RoomTicketRepo;
 import com.alan.dao.TaskRepo;
 import com.alan.dao.UserDao;
 import com.alan.model.*;
 import com.alan.service.JwtUserDetailsService;
-import com.alan.service.RoomService;
+import com.alan.service.MeetingService;
 import com.alan.service.TaskService;
 
 @RestController
@@ -29,13 +30,15 @@ public class AdminRestController {
 	@Autowired
 	private TaskRepo taskRepo;
 	@Autowired
+	private LeaveMeetingRepo leaveMeetingRepo;
+	@Autowired
 	private JwtUserDetailsService userDetailsService;
 	@Autowired
 	private TaskService taskService;
 	@Autowired
 	private RoomTicketRepo roomTicketRepo;
 	@Autowired
-	private RoomService roomService;
+	private MeetingService meetingService;
 	
 	
 	@GetMapping("/emps")
@@ -94,12 +97,21 @@ public class AdminRestController {
 	@PostMapping("/admin/respond-room-reservation")
 	public String respondRoomReservation(@RequestBody RoomTicket ticket){
 		RoomTicket updatedTicket = roomTicketRepo.findById(ticket.getTicketId()).orElse(null);
-		roomService.adminUpdate(updatedTicket, ticket.getStatus());
+		meetingService.adminUpdate(updatedTicket, ticket.getStatus());
 		
 		return "Status updated!";
 	}
 	
-	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/admin/respond-emp-leave")
+	public String respondEmpLeave(@RequestBody LeaveMeetingForm form){
+		LeaveMeetingForm updatedForm = leaveMeetingRepo.findById(form.getFormId()).orElse(null);
+		updatedForm.setRespond(form.getRespond());
+		leaveMeetingRepo.save(updatedForm);
+		String msg = "Your request for leaving is " + updatedForm.getRespond();
+		meetingService.message(updatedForm, msg, updatedForm.getEmp());
+		return "Respond Sent!";
+	}
 	//========================================================================================
 	
 	

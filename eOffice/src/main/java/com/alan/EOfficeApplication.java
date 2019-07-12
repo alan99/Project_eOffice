@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import com.alan.dao.*;
 import com.alan.model.*;
 import com.alan.service.JwtUserDetailsService;
-import com.alan.service.RoomService;
+import com.alan.service.MeetingService;
 
 @SpringBootApplication
 public class EOfficeApplication {
