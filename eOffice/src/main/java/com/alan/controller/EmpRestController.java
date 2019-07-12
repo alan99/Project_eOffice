@@ -24,6 +24,7 @@ import com.alan.model.LeaveMeetingForm;
 import com.alan.model.Room;
 import com.alan.model.RoomTicket;
 import com.alan.model.Task;
+import com.alan.model.UserDTO;
 import com.alan.service.EmpService;
 import com.alan.service.TaskService;
 
@@ -52,6 +53,11 @@ public class EmpRestController {
 	private EmpService empService;
 	
 	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/register")
+	public void newEmp(@RequestBody UserDTO user) {
+		empService.register(user);
+	}
 	
 	@GetMapping("/tasks")
 	public List<Task> findAllEmpTasks(@RequestBody Emp emp){

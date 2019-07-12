@@ -16,20 +16,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "eoffice_user")
 public class DAOUser {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Id	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
-	@Column @Email
+	
+	@Column(nullable = false)
+	@Email
 	private String username;	//Email
+	
 	@Column
 	@JsonIgnore
 	private String password;
+	
 	@Column
 	private String role;
-	@OneToOne
-	@JoinColumn(name = "empId")
-	private Emp emp;
+	
+//	@OneToOne
+//	@JoinColumn(name = "empId")
+//	private Emp emp;
 
+	
+	
 	
 	public long getId() {
 		return id;
@@ -63,13 +69,13 @@ public class DAOUser {
 		this.role = role;
 	}
 
-	public Emp getEmp() {
-		return emp;
-	}
-
-	public void setEmp(Emp emp) {
-		this.emp = emp;
-	}
+//	public Emp getEmp() {
+//		return emp;
+//	}
+//
+//	public void setEmp(Emp emp) {
+//		this.emp = emp;
+//	}
 
 	
 

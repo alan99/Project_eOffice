@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 //import javax.validation.constraints.Email;
 
@@ -26,25 +27,42 @@ public class Emp {
 	@Column
 	private int contactNo;
 	
+	@OneToOne
+	@JoinColumn(name = "username", nullable = false)
+	private String username;	//Email
+	
 	@ManyToOne
 	@JoinColumn(name = "deptId", nullable = true)
 	private Dept dept;
 
 	public Emp() {}
 	
-	public Emp(String f_Name, String l_Name, int contactNo, Dept dept) {
+	
+	
+
+	public Emp(String f_Name, String l_Name, int contactNo, String username, Dept dept) {
 		super();
 		this.f_Name = f_Name;
 		this.l_Name = l_Name;
 		this.contactNo = contactNo;
+		this.username = username;
 		this.dept = dept;
 	}
-	public Emp(String f_Name, String l_Name, int contactNo) {
-		super();
-		this.f_Name = f_Name;
-		this.l_Name = l_Name;
-		this.contactNo = contactNo;
-	}
+
+//
+//	public Emp(String f_Name, String l_Name, int contactNo, Dept dept) {
+//		super();
+//		this.f_Name = f_Name;
+//		this.l_Name = l_Name;
+//		this.contactNo = contactNo;
+//		this.dept = dept;
+//	}
+//	public Emp(String f_Name, String l_Name, int contactNo) {
+//		super();
+//		this.f_Name = f_Name;
+//		this.l_Name = l_Name;
+//		this.contactNo = contactNo;
+//	}
 
 
 	public long getEmpId() {
@@ -87,6 +105,13 @@ public class Emp {
 		this.dept = dept;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	
 	
 }

@@ -24,8 +24,8 @@ public class EOfficeApplication {
 			Dept d2 = new Dept("Sales");
 			deptRepo.save(d1);
 			deptRepo.save(d2);
-			Emp emp = new Emp("Chih-Lun", "Chang", 12345678, d1);
-			Emp emp2 = new Emp("Eric", "XXX", 19999999, d2);
+			Emp emp = new Emp("Chih-Lun", "Chang", 12345678, "alan2ndtemp@gmail.com", d1);
+			Emp emp2 = new Emp("Eric", "XXX", 19999999, "alan.2nd.temp@gmail.com", d2);
 			empRepo.save(emp);
 			empRepo.save(emp2);
 //			UserDTO user = new UserDTO("ofcadmncog@gmail.com", "kkkk", "ADMIN");

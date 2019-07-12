@@ -55,7 +55,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setRole(user.getRole());
-		newUser.setEmp(emp);
+//		newUser.setEmp(emp);
 		return userDao.save(newUser);
 	}
 	
@@ -65,8 +65,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 		if (user.getPassword()!= null)
 			updatedUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		
-		if (user.getEmp() != null)
-			updatedUser.setEmp(user.getEmp());
+//		if (user.getEmp() != null)
+//			updatedUser.setEmp(user.getEmp());
 		
 		return userDao.save(updatedUser);
 	}

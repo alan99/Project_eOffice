@@ -4,7 +4,7 @@ public class UserDTO {
 	private String username;
 	private String password;
 	private String role;
-	private Emp emp;
+//	private Emp emp;
 	
 	
 	
@@ -41,12 +41,12 @@ public class UserDTO {
 		this.role = role;
 	}
 
-	public Emp getEmp() {
-		return emp;
-	}
-
-	public void setEmp(Emp emp) {
-		this.emp = emp;
-	}
+//	public Emp getEmp() {
+//		return emp;
+//	}
+//
+//	public void setEmp(Emp emp) {
+//		this.emp = emp;
+//	}
 	
 }

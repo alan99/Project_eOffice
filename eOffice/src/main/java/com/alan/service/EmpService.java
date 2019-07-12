@@ -10,6 +10,7 @@ import com.alan.model.Emp;
 import com.alan.model.LeaveMeetingForm;
 import com.alan.model.Room;
 import com.alan.model.RoomTicket;
+import com.alan.model.UserDTO;
 
 @Service
 public class EmpService {
@@ -25,6 +26,14 @@ public class EmpService {
     private MailService mailService;
     @Autowired
     private RoomService roomService;
+    @Autowired
+    private JwtUserDetailsService userDetailsService;
+    
+    
+    public void register(UserDTO user) {
+    	Emp emp = empRepo.findByUsername(user.getUsername());
+    	userDetailsService.save(user, emp);
+    }
     
 	public String bookRoom(RoomTicket ticket, Room room) {
 		boolean availability = roomService.checkAvailability(room, ticket.getStartTime(), ticket.getEndTime());

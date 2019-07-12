@@ -12,7 +12,6 @@ import com.alan.dao.EmpRepo;
 import com.alan.dao.LeaveMeetingRepo;
 import com.alan.dao.RoomTicketRepo;
 import com.alan.dao.TaskRepo;
-import com.alan.dao.UserDao;
 import com.alan.model.*;
 import com.alan.service.JwtUserDetailsService;
 import com.alan.service.AdminService;
@@ -27,8 +26,6 @@ public class AdminRestController {
 	private EmpRepo empRepo;
 	@Autowired
 	private DeptRepo deptRepo;
-	@Autowired
-	private UserDao userDao;
 	@Autowired
 	private TaskRepo taskRepo;
 	@Autowired
@@ -45,10 +42,46 @@ public class AdminRestController {
 	@Autowired
 	private AdminService adminService;
 	
+//	========================================== control employee info ============================================
+	
 	@GetMapping("/emps")
 	public List<Emp> findAllEmps(){
 		return empRepo.findAll();
 	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/update-emp")
+	public Emp newEmp(@RequestBody Emp emp) {
+		adminService.addEmp(emp);
+		return emp;
+	}
+	
+	@PutMapping("/update-emp")
+	public String updateEmp(@RequestBody Emp newEmp) {
+		Emp oldEmp = empRepo.findById(newEmp.getEmpId()).orElse(null);
+		
+		if (oldEmp == null) {
+			return "There is no employee. Please try again.";
+		} else {
+			adminService.updateEmp(oldEmp, newEmp);
+			return "The information of employee with ID " + oldEmp.getEmpId() + " is updated.";
+		}
+	}
+	
+	@DeleteMapping("/update-emp")
+	public String deleteEmpById(@RequestBody Emp empId) {
+		Emp emp = empRepo.findById(empId.getEmpId()).orElse(null);
+		
+		if (emp == null) {
+			return "ID " + empId + " is invalid. Please try the other.";
+		} else {
+			return adminService.removeEmp(emp);
+		}
+	}
+	
+	
+//	========================================== control department info ============================================
+	
 	
 	@GetMapping("/depts")
 	public List<Dept> findAllDepts(){
@@ -67,15 +100,7 @@ public class AdminRestController {
 	
 	//========================================================================================
 	
-	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/register-emp")
-	public Emp newEmp(@RequestBody Emp emp /*, @PathVariable  String deptName*/) {
-		Dept dept = deptRepo.findByDeptName(emp.getDept().getDeptName());
-		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo());
-		newEmp.setDept(dept);
-		empRepo.save(newEmp);
-		return newEmp;
-	}
+	
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/depts/register-user/{empId}")
@@ -143,13 +168,7 @@ public class AdminRestController {
 			return "Department " + deptId + " is " + dept.getDeptName();
 	}
 	
-	@PutMapping("/update-emp/{empId}")
-	public String updateEmp(@RequestBody Emp emp, @PathVariable Long empId) {
-		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo(), emp.getDept());
-		newEmp.setEmpId(empId);
-		empRepo.save(newEmp);
-		return "The information of employee " + empId + " is updated.";
-	}
+	
 	
 	@PutMapping("/update-dept/{deptId}")
 	public String updateDept(@RequestBody Dept dept, @PathVariable Long deptId) {
@@ -159,17 +178,5 @@ public class AdminRestController {
 		return "The information of employee " + deptId + " is updated.";
 	}
 	
-	@DeleteMapping("/delete-emp/{empId}")
-	public String deleteEmpById(@PathVariable Long empId) {
-		Emp emp = empRepo.findById(empId).orElse(null);
-		if (emp == null)
-			return "ID " + empId + " is invalid. Please try the other.";
-		else {
-			String empFName = emp.getF_Name(), empLName = emp.getL_Name();
-			DAOUser user = userDao.findByEmp(emp);
-			empRepo.deleteById(empId);
-			userDao.deleteById(user.getId());
-			return "Employee " + empFName + " " + empLName + " is removed from the database";
-		}
-	}
+	
 }
