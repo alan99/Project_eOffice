@@ -20,6 +20,7 @@ import com.alan.service.TaskService;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdminRestController {
 
 	@Autowired
@@ -51,9 +52,10 @@ public class AdminRestController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/update-emp")
-	public Emp newEmp(@RequestBody Emp emp) {
-		adminService.addEmp(emp);
-		return emp;
+	public String newEmp(@RequestBody Emp emp) {
+		empRepo.save(adminService.addEmp(emp));
+		return "saved";
+//		return ResponseEntity.ok();
 	}
 	
 	@PutMapping("/update-emp")

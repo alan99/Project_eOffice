@@ -23,7 +23,7 @@ public class TaskService {
 		task.setEmp(emp);
 		taskRepo.save(task);
 		
-		String receiver = userDao.findByEmp(emp).getUsername();
+		String receiver = emp.getUsername();
 		String subject = "Task Assignment Notification [" + task.getTaskId() + "]";
 		String content = "TaskName: " + task.getTaskName() + "\n" + 
 				"Description: " + task.getTaskText() + "\n" + 
@@ -42,7 +42,7 @@ public class TaskService {
 	public void respondTask(Task task) {
 		taskRepo.save(task);
 		
-		String receiver = userDao.findByEmp(task.getLeader()).getUsername();
+		String receiver = task.getLeader().getUsername();
 		String subject = "Task Modification Notification [" + task.getTaskId() + "]";
 		String content = "Task " +task.getTaskId() + ". " + task.getTaskName() + " has been modified successfully please & revert if any changes.\n" + 
 				"Thanks\n" + 

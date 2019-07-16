@@ -50,7 +50,7 @@ public class EmpService {
 			newTicket.setEmp(emp);
 			roomTicketRepo.save(newTicket);
 			
-			String receiver = userDao.findByEmp(ticket.getAdmin()).getUsername();
+			String receiver = ticket.getAdmin().getUsername();
 			String subject = "Room Reservation [" + ticket.getRoom().getRoomName() + "]";
 			String content = "Please check";
 			
@@ -62,10 +62,10 @@ public class EmpService {
 	
 	
 	
-	public void message(LeaveMeetingForm form, String msg, Emp receive) {
-		String receiver = userDao.findByEmp(receive).getUsername();
+	public void message(LeaveMeetingForm form, String msg, Emp receiver) {
+//		String receiver = userDao.findByEmp(receive).getUsername();
 		String subject = form.getLeaveType() + " " + form.getEmp().getF_Name() + " " + form.getEmp().getL_Name();
 		
-		mailService.autoSendingEmail(receiver, subject, msg);
+		mailService.autoSendingEmail(receiver.getUsername(), subject, msg);
 	}
 }
