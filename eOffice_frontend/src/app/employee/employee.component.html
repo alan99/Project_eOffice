@@ -1,0 +1,20 @@
+<table border="1">
+    <thead></thead>
+    <tr>
+        <th>Emp Id</th><th>Emp Name</th><th>Emp Sal</th>
+    </tr>
+
+    <tbody>
+        <tr *ngFor="let emp of emps">
+            <td>{{emp.empId}}</td>
+            <td>{{emp.f_Name}}</td>
+            <td>{{emp.l_Name}}</td>
+            <td>
+                <button class="btn btn-danger" (click)="deleteEmp(emp)">
+                    Delete Employee
+                </button>
+            </td>
+        </tr>
+    </tbody>
+
+</table>

@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 //import javax.validation.constraints.Email;
+import javax.validation.constraints.Email;
 
 
 @Entity
@@ -27,12 +28,13 @@ public class Emp {
 	@Column
 	private int contactNo;
 	
-	@OneToOne
-	@JoinColumn(name = "username", nullable = false)
+//	@OneToOne
+	@JoinColumn(name = "username")
+	@Email
 	private String username;	//Email
 	
 	@ManyToOne
-	@JoinColumn(name = "deptId", nullable = true)
+	@JoinColumn(name = "deptId")
 	private Dept dept;
 
 	public Emp() {}

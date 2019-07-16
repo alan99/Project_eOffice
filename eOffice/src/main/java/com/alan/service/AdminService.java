@@ -1,6 +1,7 @@
 package com.alan.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.alan.dao.DeptRepo;
@@ -40,16 +41,16 @@ public class AdminService {
 	}
 	
 	
-	public void addEmp(Emp emp) {
+	public Emp addEmp(Emp emp) {
 		Dept dept = deptRepo.findById(emp.getDept().getDeptId()).orElse(null);
 		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo(), emp.getUsername(), dept);
-		empRepo.save(newEmp);
 		
 		String receiver = newEmp.getUsername();
 		String subject = "Welcome! Please Register";
 		String content = "Register Link";
 		
 		mailService.autoSendingEmail(receiver, subject, content);
+		return newEmp;
 	}
 	
 	public void updateEmp(Emp oldEmp, Emp newEmp) {
@@ -66,7 +67,7 @@ public class AdminService {
 	
 	public String removeEmp(Emp emp) {
 		String empFName = emp.getF_Name(), empLName = emp.getL_Name();
-		DAOUser user = userDao.findByEmp(emp);
+		DAOUser user = userDao.findByUsername(emp.getUsername());
 		empRepo.deleteById(emp.getEmpId());
 		userDao.deleteById(user.getId());
 		return "Employee " + empFName + " " + empLName + " is removed from the database";

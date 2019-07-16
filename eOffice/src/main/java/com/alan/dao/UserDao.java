@@ -9,5 +9,5 @@ import com.alan.model.Emp;
 @Repository
 public interface UserDao extends CrudRepository<DAOUser, Long> {
 	DAOUser findByUsername(String username);
-	DAOUser findByEmp(Emp emp);
+//	DAOUser findByEmp(Emp emp);
 }
