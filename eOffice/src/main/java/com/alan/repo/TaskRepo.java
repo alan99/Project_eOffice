@@ -1,4 +1,4 @@
-package com.alan.dao;
+package com.alan.repo;
 
 import java.util.List;
 

@@ -35,11 +35,11 @@ public class Task {
 	private Date endDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "leaderId", nullable = true)
+	@JoinColumn(name = "leaderId", nullable = false)
 	private Emp leader;
 	
 	@ManyToOne
-	@JoinColumn(name = "empId", nullable = true)
+	@JoinColumn(name = "empId", nullable = false)
 	private Emp emp;
 	
 	@Column
@@ -47,6 +47,19 @@ public class Task {
 
 	
 	public Task() {}
+
+	
+	public Task(String taskName, String taskText, Date startDate, Date endDate, Emp leader, Emp emp) {
+		super();
+		this.taskName = taskName;
+		this.taskText = taskText;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.leader = leader;
+		this.emp = emp;
+		this.taskStatus = "Uncompleted";
+	}
+
 
 	public Task(String taskName, String taskText, Date startDate, Date endDate) {
 		super();

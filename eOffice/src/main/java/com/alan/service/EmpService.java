@@ -1,16 +1,21 @@
 package com.alan.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.alan.dao.EmpRepo;
-import com.alan.dao.RoomTicketRepo;
-import com.alan.dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import com.alan.model.Emp;
 import com.alan.model.LeaveMeetingForm;
 import com.alan.model.Room;
 import com.alan.model.RoomTicket;
+import com.alan.model.Task;
 import com.alan.model.UserDTO;
+import com.alan.repo.EmpRepo;
+import com.alan.repo.LeaveMeetingRepo;
+import com.alan.repo.RoomRepo;
+import com.alan.repo.RoomTicketRepo;
+import com.alan.repo.TaskRepo;
 
 @Service
 public class EmpService {
@@ -18,9 +23,14 @@ public class EmpService {
     @Autowired
     private RoomTicketRepo roomTicketRepo;
     @Autowired
-    private UserDao userDao;
-    @Autowired
     private EmpRepo empRepo;
+    @Autowired
+    private TaskRepo taskRepo;
+    @Autowired
+    private RoomRepo roomRepo;
+    @Autowired
+    private LeaveMeetingRepo leaveMeetingRepo;
+    
     
     @Autowired
     private MailService mailService;
@@ -30,40 +40,74 @@ public class EmpService {
     private JwtUserDetailsService userDetailsService;
     
     
+    public List<Emp> listAllEmps(){
+		return empRepo.findAll();
+	}
+    
+    
+    
+    
     public void register(UserDTO user) {
-    	Emp emp = empRepo.findByUsername(user.getUsername());
-    	userDetailsService.save(user, emp);
+    	userDetailsService.register(user);
     }
     
-	public String bookRoom(RoomTicket ticket, Room room) {
-		boolean availability = roomService.checkAvailability(room, ticket.getStartTime(), ticket.getEndTime());
-
-		if (!availability) {
-			return "The room is unavailable. Please try the other.";
+    
+    
+    
+    public List<Task> listAllTasks(Emp emp){
+    	return taskRepo.findByEmp(empRepo.findById(emp.getEmpId()).orElse(null));
+    }
+    
+    
+    
+    
+    public List<RoomTicket> listAllRoomTickets(Emp emp){
+    	return roomTicketRepo.findByEmp(empRepo.findById(emp.getEmpId()).orElse(null));
+    }
+    
+    
+    
+	public ResponseEntity<?> bookRoom(RoomTicket ticket) {
+		
+		Room room = roomRepo.findById(ticket.getRoom().getRoomId()).orElse(null);
+		
+		if (room == null) {
+			return ResponseEntity.ok("There is no this room. Please type again.");
 		} else {
-			Emp emp = empRepo.findById(ticket.getEmp().getEmpId()).orElse(null);
-			Emp admin = empRepo.findById(ticket.getAdmin().getEmpId()).orElse(null);
-			
-			RoomTicket newTicket = new RoomTicket(ticket.getStartTime(), ticket.getEndTime(), ticket.getDescription());
-			newTicket.setRoom(room);
-			newTicket.setAdmin(admin);
-			newTicket.setEmp(emp);
-			roomTicketRepo.save(newTicket);
-			
-			String receiver = ticket.getAdmin().getUsername();
-			String subject = "Room Reservation [" + ticket.getRoom().getRoomName() + "]";
-			String content = "Please check";
-			
-			mailService.autoSendingEmail(receiver, subject, content);
-			
-			return "Request Delivered!";
+			boolean availability = roomService.checkAvailability(room, ticket.getStartTime(), ticket.getEndTime());
+
+			if (!availability) {
+				return ResponseEntity.ok("The room is unavailable. Please try the other.");
+			} else {
+				ticket.setRoom(room);
+				Emp emp = empRepo.findById(ticket.getEmp().getEmpId()).orElse(null);		ticket.setEmp(emp);
+				Emp admin = empRepo.findById(ticket.getAdmin().getEmpId()).orElse(null);	ticket.setAdmin(admin);
+				
+				roomTicketRepo.save(ticket);
+				
+				String receiver = ticket.getAdmin().getUsername();
+				String subject = "Room Reservation [" + ticket.getRoom().getRoomName() + "]";
+				String content = "Please check";
+				
+				mailService.autoSendingEmail(receiver, subject, content);
+				
+				return ResponseEntity.ok("Request Delivered!");
+			}
 		}
 	}
 	
 	
+	public void leaveMeeting(LeaveMeetingForm form) {
+		Emp emp= empRepo.findById(form.getEmp().getEmpId()).orElse(null);			form.setEmp(emp);
+		Emp admin = empRepo.findById(form.getAdmin().getEmpId()).orElse(null);		form.setAdmin(admin);
+		
+		leaveMeetingRepo.save(form);
+		
+		message(form, form.getReason(), admin);
+	}
+	
 	
 	public void message(LeaveMeetingForm form, String msg, Emp receiver) {
-//		String receiver = userDao.findByEmp(receive).getUsername();
 		String subject = form.getLeaveType() + " " + form.getEmp().getF_Name() + " " + form.getEmp().getL_Name();
 		
 		mailService.autoSendingEmail(receiver.getUsername(), subject, msg);

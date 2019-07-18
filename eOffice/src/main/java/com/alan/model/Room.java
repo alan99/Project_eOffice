@@ -12,13 +12,13 @@ import javax.persistence.Table;
 public class Room {
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long roomId;
-	
 	@Column
 	private String roomName;
-	
 	@Column
 	private String roomType;
 
+	
+	
 	public Room() {}
 
 	public Room(String roomName, String roomType) {
@@ -27,6 +27,8 @@ public class Room {
 		this.roomType = roomType;
 	}
 
+	
+	
 	public long getRoomId() {
 		return roomId;
 	}

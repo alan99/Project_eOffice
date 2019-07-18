@@ -1,23 +1,31 @@
 <table border="1" align="center">
+
+    <button mat-raised-button class="btn btn-primary" (click)="openAddEmpDialog()">
+        Add
+    </button>
+
     <thead></thead>
     <tr align="center">
-        <th>Emp Id</th><th>Emp Name</th><th>Contect Number</th><th>Department</th>
+        <th>Emp Id</th>
+        <th>Emp Name</th>
+        <th>Contect Number</th>
+        <th>Department</th>
     </tr>
 
     <!-- <tbody > -->
-<tbody *ngIf="loginService.isUserLoggedIn() && loginService.isAdmin()">
+    <tbody *ngIf="loginService.isUserLoggedIn() && loginService.isAdmin()">
         <tr *ngFor="let emp of emps">
             <td align="center">{{emp.empId}}</td>
             <td align="center">{{emp.f_Name}} {{emp.l_Name}}</td>
             <td align="right">{{emp.contactNo}}</td>
             <td align="center">{{emp.dept.deptName}}</td>
             <td>
-                <button mat-raised-button class="btn btn-primary" (click)="openEditEmpDialog(emp)" >
+                <button mat-raised-button class="btn btn-primary" (click)="openEditEmpDialog(emp)">
                     Edit
                 </button>
             </td>
             <td>
-                <button mat-raised-button class="btn btn-danger" (click)="deleteEmp(emp)" >
+                <button mat-raised-button class="btn btn-danger" (click)="deleteEmp(emp)">
                     Delete
                 </button>
             </td>

@@ -5,10 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.alan.dao.*;
 import com.alan.model.*;
+import com.alan.repo.*;
+import com.alan.service.AdminService;
 import com.alan.service.JwtUserDetailsService;
-import com.alan.service.EmpService;
 
 @SpringBootApplication
 public class EOfficeApplication {
@@ -18,7 +18,7 @@ public class EOfficeApplication {
 	}
 
 	@Bean
-	CommandLineRunner unutualuzeDB(DeptRepo deptRepo, EmpRepo empRepo, JwtUserDetailsService userDetailsService, RoomRepo roomRepo) {
+	CommandLineRunner unutualuzeDB(DeptRepo deptRepo, EmpRepo empRepo, JwtUserDetailsService userDetailsService, RoomRepo roomRepo, AdminService adminService) {
 		return args->{			
 			Dept d1 = new Dept("RD");
 			Dept d2 = new Dept("Sales");
@@ -28,12 +28,14 @@ public class EOfficeApplication {
 			Emp emp2 = new Emp("Eric", "XXX", 19999999, "alan.2nd.temp@gmail.com", d2);
 			empRepo.save(emp);
 			empRepo.save(emp2);
-//			UserDTO user = new UserDTO("ofcadmncog@gmail.com", "kkkk", "ADMIN");
-			UserDTO user = new UserDTO("alan2ndtemp@gmail.com", "kkkk", "ADMIN");
-			userDetailsService.save(user, emp);
-			UserDTO user2 = new UserDTO("alan.2nd.temp@gmail.com", "1234", "EMP");
-			userDetailsService.save(user2, emp2);
-//			mailService.autoSendingEmail(emp, user);
+
+			UserDTO user = new UserDTO("alan2ndtemp@gmail.com", "kkkk");
+			userDetailsService.register(user);
+			UserDTO user2 = new UserDTO("alan.2nd.temp@gmail.com", "1234");
+			userDetailsService.register(user2);
+			
+			adminService.authorizeAdminRight(emp);
+
 			Room room = new Room("Big Room", "Training");
 			roomRepo.save(room);
 		};

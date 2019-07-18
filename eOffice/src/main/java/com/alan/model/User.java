@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
@@ -14,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "eoffice_user")
-public class DAOUser {
+public class User {
 
 	@Id	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
@@ -29,11 +27,6 @@ public class DAOUser {
 	
 	@Column
 	private String role;
-	
-//	@OneToOne
-//	@JoinColumn(name = "empId")
-//	private Emp emp;
-
 	
 	
 	
@@ -68,14 +61,6 @@ public class DAOUser {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-//	public Emp getEmp() {
-//		return emp;
-//	}
-//
-//	public void setEmp(Emp emp) {
-//		this.emp = emp;
-//	}
 
 	
 

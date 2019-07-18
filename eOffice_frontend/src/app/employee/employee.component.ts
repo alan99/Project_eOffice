@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../service/authentication.service';
+import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 
 // import { HttpClientService } from '../service/http-client.service';
 
@@ -56,7 +57,16 @@ export class EmployeeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
+    });
+  }
+
+  openAddEmpDialog(): void {
+    const dialogRef = this.dialog.open(AddEmployeeComponent, {
+      width: '450px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 
@@ -83,6 +93,7 @@ export class EmployeeComponent implements OnInit {
 
 }
 
+//========================================================================
 
 @Component({
   selector: 'app-edit-employee',
@@ -90,19 +101,23 @@ export class EmployeeComponent implements OnInit {
 })
 export class EditEmployeeComponent {
   url = 'http://localhost:8081/admin';
-  selectedDeptId:number;
+
   dept: Dept = new Dept(0, '');
   depts: Dept[];
   emp: Emp = new Emp(0, '', '', 0, '', null);
+  selectedDeptId: number;
+
   constructor(
     private httpClient: HttpClient,
     public dialogRef: MatDialogRef<EditEmployeeComponent>,
-    @Inject(MAT_DIALOG_DATA) public c_emp: Emp) {
-    this.emp = c_emp;
-    this.emp.dept = this.dept;
-    
-    console.log(this.emp);
-  }
+    @Inject(MAT_DIALOG_DATA) public c_emp: Emp) 
+    {
+      this.emp = c_emp;
+      // this.emp.dept = this.dept;
+      this.dept = this.emp.dept;
+      this.selectedDeptId = this.dept.deptId;
+      console.log(this.emp);
+    }
 
   ngOnInit() {
     this.getDepts().subscribe(response => this.successResponse(response));
@@ -112,7 +127,7 @@ export class EditEmployeeComponent {
   successResponse(response) {
     return this.depts = response;
   }
-  
+
   public getDepts() {
     return this.httpClient.get<Dept[]>(this.url + '/depts');
   }
@@ -122,6 +137,7 @@ export class EditEmployeeComponent {
   }
 
   editEmpClick(): void {
+    console.log(this.dept);
     this.dept.deptId = this.selectedDeptId;
     this.emp.dept = this.dept;
     console.log(this.emp);
@@ -129,7 +145,7 @@ export class EditEmployeeComponent {
       .subscribe(
         // data=>{console.log('Emp updated successfully...');}
       );
-    
+
     this.dialogRef.close();
   }
 }

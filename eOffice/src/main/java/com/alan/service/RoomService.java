@@ -6,14 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alan.dao.RoomTicketRepo;
 import com.alan.model.Room;
 import com.alan.model.RoomTicket;
+import com.alan.repo.RoomTicketRepo;
 
 @Service
 public class RoomService {
 	@Autowired
     private RoomTicketRepo roomTicketRepo;
+	
+	public List<RoomTicket> listAllTickets(){
+		return roomTicketRepo.findAll();
+	}
 	
 	public boolean checkAvailability(Room room, Date startTime, Date endTime){
 		

@@ -12,7 +12,6 @@ import javax.persistence.Table;
 public class Dept {
 	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long deptId;
-	
 	@Column
 	private String deptName;
 	

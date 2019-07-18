@@ -22,7 +22,7 @@ public class RoomTicket {
 	private long ticketId;
 	
 	@ManyToOne
-	@JoinColumn(name = "roomId", nullable = true)
+	@JoinColumn(name = "roomId", nullable = false)
 	private Room room;
 	
 	@Column
@@ -34,11 +34,11 @@ public class RoomTicket {
 	private Date endTime;
 	
 	@ManyToOne
-	@JoinColumn(name = "empId", nullable = true)
+	@JoinColumn(name = "empId", nullable = false)
 	private Emp emp;
 	
 	@ManyToOne
-	@JoinColumn(name = "adminId", nullable = true)
+	@JoinColumn(name = "adminId", nullable = false)
 	private Emp admin;
 	
 	@Column
@@ -47,19 +47,23 @@ public class RoomTicket {
 	@Column
 	private String status;
 
+	
+	
 	public RoomTicket() {}	
-
-	public RoomTicket(Date startTime, Date endTime, String description){
+	
+	public RoomTicket(Room room, Date startTime, Date endTime, Emp emp, Emp admin, String description) {
 		super();
-//		this.room = room;
+		this.room = room;
 		this.startTime = startTime;
 		this.endTime = endTime;
-//		this.emp = emp;
-//		this.admin = admin;
+		this.emp = emp;
+		this.admin = admin;
 		this.description = description;
 		this.status = "Requesting";
 	}
 
+	
+	
 	public long getTicketId() {
 		return ticketId;
 	}

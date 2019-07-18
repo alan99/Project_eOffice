@@ -9,22 +9,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.alan.dao.UserDao;
 import com.alan.model.*;
+import com.alan.repo.EmpRepo;
+import com.alan.repo.UserRepo;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserRepo userRepo;
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private EmpRepo empRepo;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		DAOUser user = userDao.findByUsername(username);
+		User user = userRepo.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
@@ -32,15 +35,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 	
-	public DAOUser save(UserDTO user) {
-		DAOUser newUser = new DAOUser();
+	public User register(UserDTO user) {
+		User newUser = new User();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		return userDao.save(newUser);
-	}
-	
-	public DAOUser save(UserDTO user, Emp emp) {
-		DAOUser newUser = new DAOUser();
+		newUser.setRole("EMP");
+		
+		Emp emp = empRepo.findByUsername(user.getUsername());
 		
 		String receiver = user.getUsername();
 		String subject = "Welcome on-board, Mr " + emp.getF_Name() + " " + emp.getL_Name();
@@ -52,26 +53,32 @@ public class JwtUserDetailsService implements UserDetailsService {
 				"Password:" + user.getPassword() + " from Users\n" ;
 		
 		mailService.autoSendingEmail(receiver, subject, content);
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		newUser.setRole(user.getRole());
-//		newUser.setEmp(emp);
-		return userDao.save(newUser);
+		
+		return userRepo.save(newUser);
 	}
 	
-	public DAOUser edit(UserDTO user) {
-		DAOUser updatedUser = userDao.findByUsername(user.getUsername());
+
+	
+	public User edit(UserDTO user) {
+		User updatedUser = userRepo.findByUsername(user.getUsername());
 		
 		if (user.getPassword()!= null)
 			updatedUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		
-//		if (user.getEmp() != null)
-//			updatedUser.setEmp(user.getEmp());
-		
-		return userDao.save(updatedUser);
+		return userRepo.save(updatedUser);
 	}
 	
 	public String checkRole(String username) {
-		return userDao.findByUsername(username).getRole();
+		return userRepo.findByUsername(username).getRole();
+	}
+	
+	public User findUser(String username) {
+		return userRepo.findByUsername(username);
+	}
+	
+	public void authorizeAdmin(String username) {
+		User user = findUser(username);
+		user.setRole("ADMIN");
+		userRepo.save(user);
 	}
 }

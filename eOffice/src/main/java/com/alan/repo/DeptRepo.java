@@ -1,4 +1,4 @@
-package com.alan.dao;
+package com.alan.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
