@@ -1,0 +1,26 @@
+<table border="1" align="center">
+
+        <thead></thead>
+        <tr align="center">
+            <th>Dept Id</th>
+            <th>Dept Name</th>
+        </tr>
+    
+        <!-- <tbody > -->
+        <tbody *ngIf="loginService.isUserLoggedIn()">
+            <tr *ngFor="let dept of depts">
+                <td align="center">{{dept.deptId}}</td>
+                <td align="center">{{dept.deptName}}</td>
+            </tr>
+            
+            <tr align="center" *ngIf="loginService.isAdmin()">
+                <th>
+                    <button mat-raised-button class="btn btn-primary" (click)="openAddDeptDialog()">
+                        Add
+                    </button>
+                </th>
+            </tr>
+        </tbody>
+    
+    
+    </table>

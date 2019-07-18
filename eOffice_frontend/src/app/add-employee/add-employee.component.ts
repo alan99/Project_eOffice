@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 // import { HttpClientService } from '../service/http-client.service';
 
 export class Dept{
@@ -29,7 +30,8 @@ export class AddEmployeeComponent implements OnInit {
   depts: Dept[];
   selectedDeptId:number;
 
-  constructor(private httpClient:HttpClient,
+  constructor(private router:Router,
+              private httpClient:HttpClient,
               public dialogRef: MatDialogRef<AddEmployeeComponent>) 
   { 
     // this.dept = this.emp.dept;
@@ -53,10 +55,13 @@ export class AddEmployeeComponent implements OnInit {
     this.dept.deptId = this.selectedDeptId;
     this.emp.dept = this.dept;
     console.log(this.emp);
-    return this.httpClient.post<Emp>(this.url + '/add-emp', this.emp)
+    this.httpClient.post(this.url + '/add-emp', this.emp)
     .subscribe(data=>{
           console.log('Emp created successfully...');
     })
+    
+    this.dialogRef.close();
+    this.router.navigate(["/emps"]);
   }
 
   onNoClick(): void {

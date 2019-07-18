@@ -1,8 +1,6 @@
 <table border="1" align="center">
 
-    <button mat-raised-button class="btn btn-primary" (click)="openAddEmpDialog()">
-        Add
-    </button>
+
 
     <thead></thead>
     <tr align="center">
@@ -10,6 +8,11 @@
         <th>Emp Name</th>
         <th>Contect Number</th>
         <th>Department</th>
+        <th>
+            <button mat-raised-button class="btn btn-primary" (click)="openAddEmpDialog()">
+                Add
+            </button>
+        </th>
     </tr>
 
     <!-- <tbody > -->
@@ -30,6 +33,14 @@
                 </button>
             </td>
         </tr>
+        <tr align="center">
+            <th>
+                <button mat-raised-button class="btn btn-primary" (click)="openAddEmpDialog()">
+                    Add
+                </button>
+            </th>
+        </tr>
     </tbody>
+
 
 </table>

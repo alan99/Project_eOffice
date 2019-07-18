@@ -46,15 +46,15 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(new JwtResponse(token, role));
 	}
 	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.register(user));
-	}
-	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ResponseEntity<?> editUser(@RequestBody UserDTO user) throws Exception {	
-		return ResponseEntity.ok(userDetailsService.edit(user));
-	}
+//	@RequestMapping(value = "/register", method = RequestMethod.POST)
+//	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+//		return ResponseEntity.ok(userDetailsService.register(user));
+//	}
+//	
+//	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+//	public ResponseEntity<?> editUser(@RequestBody UserDTO user) throws Exception {	
+//		return ResponseEntity.ok(userDetailsService.edit(user));
+//	}
 
 	private void authenticate(String username, String password) throws Exception {
 		try {

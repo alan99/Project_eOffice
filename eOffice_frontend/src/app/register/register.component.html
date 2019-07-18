@@ -1,0 +1,11 @@
+<div class="container" align="center">
+        <mat-form-field>
+            <input matInput placeholder="username (email)" [(ngModel)]="username" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput type="password" placeholder="password" [(ngModel)]="password" required>
+        </mat-form-field>
+        <br>
+        <button (click)=register() class="btn btn-success">Register</button>
+    </div>

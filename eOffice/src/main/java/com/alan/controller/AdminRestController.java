@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.alan.model.*;
@@ -35,26 +36,26 @@ public class AdminRestController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/add-emp")
-	public String newEmp(@RequestBody Emp emp) {
+	public ResponseEntity<?> newEmp(@RequestBody Emp emp) {
 		adminService.addEmp(emp);
-		return "saved";
+		return ResponseEntity.ok("saved");
 	}
 	
 	@PutMapping("/update-emp")
-	public String updateEmp(@RequestBody Emp emp) {
-		return adminService.updateEmp(emp);
+	public ResponseEntity<?> updateEmp(@RequestBody Emp emp) {
+		return ResponseEntity.ok(adminService.updateEmp(emp));
 	}
 	
 	@DeleteMapping("/update-emp/{id}")
-	public String deleteEmpById(@PathVariable long id) {
-		return adminService.removeEmp(id);
+	public ResponseEntity<?> deleteEmpById(@PathVariable long id) {
+		return ResponseEntity.ok(adminService.removeEmp(id));
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/respond-emp-leave")
-	public String respondEmpLeave(@RequestBody LeaveMeetingForm form){
+	public ResponseEntity<?> respondEmpLeave(@RequestBody LeaveMeetingForm form){
 		adminService.respondEmpLeave(form);
-		return "Respond Sent!";
+		return ResponseEntity.ok("Respond Sent!");
 	}
 	
 //	========================================== control department info ============================================
@@ -68,16 +69,16 @@ public class AdminRestController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/add-dept")
-	Dept newDept(@RequestBody Dept dept) {
-		return deptService.addDept(dept);
+	ResponseEntity<?> newDept(@RequestBody Dept dept) {
+		return ResponseEntity.ok(deptService.addDept(dept));
 	}
 	
 
 	@PutMapping("/update-dept")
-	public String updateDept(@RequestBody Dept dept) {
+	public ResponseEntity<?> updateDept(@RequestBody Dept dept) {
 		deptService.updateDept(dept);
 		
-		return "The information of dept is updated.";
+		return ResponseEntity.ok("The information of dept is updated.");
 	}
 	
 	//======================================== control task info ================================================
@@ -90,8 +91,8 @@ public class AdminRestController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/assign-task")
-	public String assignTask(@RequestBody Task task){
-		return taskService.assignTask(task);
+	public ResponseEntity<?> assignTask(@RequestBody Task task){
+		return ResponseEntity.ok(taskService.assignTask(task));
 	}
 	
 	
@@ -105,10 +106,10 @@ public class AdminRestController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/respond-room-reservation")
-	public String replyTicket(@RequestBody RoomTicket ticket){
+	public ResponseEntity<?> replyTicket(@RequestBody RoomTicket ticket){
 		adminService.updateRoomTicket(ticket);
 		
-		return "Status updated!";
+		return ResponseEntity.ok("Status updated!");
 	}
 	
 	

@@ -48,7 +48,9 @@ public class EmpService {
     
     
     public void register(UserDTO user) {
-    	userDetailsService.register(user);
+    	if (userDetailsService.findUser(user.getUsername()) == null 
+    	 && empRepo.findByUsername(user.getUsername()) != null)
+    		userDetailsService.register(user);
     }
     
     

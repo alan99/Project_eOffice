@@ -21,7 +21,7 @@ public class AdminService {
 	@Autowired
 	private RoomTicketRepo roomTicketRepo;
 	@Autowired
-	private UserRepo userDao;
+	private UserRepo userRepo;
 	@Autowired
 	private EmpRepo empRepo;
 	@Autowired
@@ -96,10 +96,10 @@ public class AdminService {
 		} else {
 			String empFName = emp.getF_Name(), empLName = emp.getL_Name();
 
-			User user = userDao.findByUsername(emp.getUsername());
+			User user = userRepo.findByUsername(emp.getUsername());
 			
 			empRepo.deleteById(emp.getEmpId());
-			userDao.deleteById(user.getId());
+			userRepo.deleteById(user.getId());
 			
 			return "Employee " + empFName + " " + empLName + " is removed from the database";
 		}

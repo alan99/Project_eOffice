@@ -17,8 +17,8 @@ public class User {
 	@Id	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 	
-	@Column(nullable = false)
 	@Email
+	@Column(nullable = false)
 	private String username;	//Email
 	
 	@Column

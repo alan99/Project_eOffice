@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../service/authentication.service';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
+import { Router } from '@angular/router';
 
 // import { HttpClientService } from '../service/http-client.service';
 
@@ -22,7 +23,7 @@ export interface DialogData {
 }
 export class Dept {
   constructor(public deptId: number,
-    public deptName: string) { }
+              public deptName: string) { }
 }
 export class Emp {
   constructor(public empId: number,
@@ -108,6 +109,7 @@ export class EditEmployeeComponent {
   selectedDeptId: number;
 
   constructor(
+    private router:Router,
     private httpClient: HttpClient,
     public dialogRef: MatDialogRef<EditEmployeeComponent>,
     @Inject(MAT_DIALOG_DATA) public c_emp: Emp) 
@@ -142,8 +144,9 @@ export class EditEmployeeComponent {
     this.emp.dept = this.dept;
     console.log(this.emp);
     this.httpClient.put<Emp>(this.url + '/update-emp', this.emp)
-      .subscribe(
-        // data=>{console.log('Emp updated successfully...');}
+      .subscribe(data=>{
+          this.dialogRef.close();
+          this.router.navigate(["/emps"]);}
       );
 
     this.dialogRef.close();

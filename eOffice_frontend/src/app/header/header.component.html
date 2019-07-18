@@ -12,12 +12,16 @@
     </nav> -->
 
     <nav mat-tab-nav-bar mat-align-tabs="end" animationDuration="500ms">
-        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/emps" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-            View Employees
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn() && loginService.isAdmin()" routerLink="/emps" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            Employee List
         </a>
 
-        <a mat-tab-link *ngIf="loginService.isUserLoggedIn() && loginService.isAdmin()" routerLink="/addEmp" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-            Add New Employee
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/depts" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            Department List
+        </a>
+
+        <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/register" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            Register
         </a>
 
         <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">

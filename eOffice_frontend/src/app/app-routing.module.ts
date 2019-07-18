@@ -4,13 +4,19 @@ import { EmployeeComponent, EditEmployeeComponent } from 'src/app/employee/emplo
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { DepartmentComponent } from './department/department.component';
+import { AddDepartmentComponent } from './add-department/add-department.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path:'emps',component:EmployeeComponent},
   {path:'addEmp',component:AddEmployeeComponent},
   {path:'editEmp',component:EditEmployeeComponent},
+  {path:'depts',component:DepartmentComponent},
+  {path:'addDept',component:AddDepartmentComponent},
   {path:'login',component:LoginComponent},
-  {path:'logout',component:LogoutComponent}
+  {path:'logout',component:LogoutComponent},
+  {path:'register',component:RegisterComponent}
 ];
 
 @NgModule({

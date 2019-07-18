@@ -21,6 +21,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { DepartmentComponent } from './department/department.component';
+import { AddDepartmentComponent } from './add-department/add-department.component';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -33,7 +36,10 @@ import { MatSelectModule } from '@angular/material/select';
     FooterComponent,
     LoginComponent,
     LogoutComponent,
-    EditEmployeeComponent
+    EditEmployeeComponent,
+    DepartmentComponent,
+    AddDepartmentComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
