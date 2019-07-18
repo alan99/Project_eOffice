@@ -1,12 +1,32 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div><a href="" class="navbar-brand"> Employee List </a></div>
+    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div><a href="" class="navbar-brand"> eOffice </a></div>
 
         <ul class="navbar-nav">
             <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/emps" class="nav-link"> View Employees </a></li>
-            <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/addEmp" class="nav-link"> Add New Employee </a></li>
+            <li><a *ngIf="loginService.isUserLoggedIn() && loginService.isAdmin()" routerLink="/addEmp" class="nav-link"> Add New Employee </a></li>
             <li><a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="nav-link"> Login </a></li>
             <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="nav-link"> Logout </a></li>
         </ul>
+        
+    </nav> -->
+
+    <nav mat-tab-nav-bar mat-align-tabs="end" animationDuration="500ms">
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/emps" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            View Employees
+        </a>
+
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn() && loginService.isAdmin()" routerLink="/addEmp" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            Add New Employee
+        </a>
+
+        <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            Login
+        </a>
+
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            Logout
+        </a>
     </nav>
+
 </header>

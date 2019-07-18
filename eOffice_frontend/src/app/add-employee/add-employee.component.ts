@@ -25,11 +25,11 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit() {
   }
-  public createEmp(emp, dept){
+  public createEmp(){
     // this.emp = emp
-    emp.dept = dept;
+    this.emp.dept = this.dept;
     console.log(this.emp);
-    return this.httpClient.post<Emp>('http://localhost:8081/admin/update-emp', emp)
+    return this.httpClient.post<Emp>('http://localhost:8081/admin/add-emp', this.emp)
     .subscribe(data=>{
           console.log('Emp created successfully...');
     })

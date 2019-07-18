@@ -1,7 +1,19 @@
-<div class="container">
+<!-- <div class="container" align="center">
     <div>
-        User Name: <input type="text" name="username" [(ngModel)]="username"><br>
+        Username: <input type="text" name="username" [(ngModel)]="username"><br>
         Password: <input type="password" name="password" [(ngModel)]="password"><br>
         <button (click)=checkLogin() class="btn btn-success">Login</button>
     </div>
+</div> -->
+
+<div class="container" align="center">
+    <mat-form-field>
+        <input matInput placeholder="username (email)" [(ngModel)]="username" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput type="password" placeholder="password" [(ngModel)]="password" required>
+    </mat-form-field>
+    <br>
+    <button (click)=checkLogin() class="btn btn-success">Login</button>
 </div>

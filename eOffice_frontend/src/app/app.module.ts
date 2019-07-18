@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EmployeeComponent } from './employee/employee.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { EmployeeComponent, EditEmployeeComponent } from './employee/employee.component';
 import { HttpClientService } from './service/http-client.service';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +15,15 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component'
 import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
 
+import { MatDialogModule, MatButtonModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,13 +32,24 @@ import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-inter
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    EditEmployeeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule
+  ],
+  entryComponents: [
+    EditEmployeeComponent
   ],
   providers: [
     HttpClientService,

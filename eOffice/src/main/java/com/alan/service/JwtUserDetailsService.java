@@ -70,4 +70,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 		
 		return userDao.save(updatedUser);
 	}
+	
+	public String checkRole(String username) {
+		return userDao.findByUsername(username).getRole();
+	}
 }

@@ -51,7 +51,7 @@ public class AdminRestController {
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/update-emp")
+	@PostMapping("/add-emp")
 	public String newEmp(@RequestBody Emp emp) {
 		empRepo.save(adminService.addEmp(emp));
 		return "saved";
@@ -70,14 +70,14 @@ public class AdminRestController {
 		}
 	}
 	
-	@DeleteMapping("/update-emp")
-	public String deleteEmpById(@RequestBody Emp empId) {
-		Emp emp = empRepo.findById(empId.getEmpId()).orElse(null);
+	@DeleteMapping("/update-emp/{id}")
+	public String deleteEmpById(@PathVariable long id) {
+		Emp deletedEmp = empRepo.findById(id).orElse(null);
 		
-		if (emp == null) {
-			return "ID " + empId + " is invalid. Please try the other.";
+		if (deletedEmp == null) {
+			return "ID " + id + " is invalid. Please try the other.";
 		} else {
-			return adminService.removeEmp(emp);
+			return adminService.removeEmp(deletedEmp);
 		}
 	}
 	

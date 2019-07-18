@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
     this.loginservice.authenticate(this.username,this.password).subscribe(
       data => {
         sessionStorage.setItem("token",data.token);
-        console.log(sessionStorage.getItem("token"));
+        sessionStorage.setItem("role", data.role);
+        console.log(sessionStorage.getItem("token"), sessionStorage.getItem('role'));
         this.router.navigate([""]);     // redirect to the specific page (ex: ["/emps"])
       }
     );
