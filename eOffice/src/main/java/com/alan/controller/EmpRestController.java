@@ -37,7 +37,10 @@ public class EmpRestController {
 		empService.register(user);
 	}
 
-	
+	@GetMapping("/emps")
+	public List<Emp> findAllEmps(){
+		return empService.listAllEmps();
+	}
 	
 	@GetMapping("/depts")
 	public List<Dept> findAllDepts(){

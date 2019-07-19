@@ -7,7 +7,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { Router } from '@angular/router';
 
-// import { HttpClientService } from '../service/http-client.service';
+import { HttpClientService } from '../service/http-client.service';
 
 export interface DialogDataDept {
   deptId: number,
@@ -27,11 +27,11 @@ export class Dept {
 }
 export class Emp {
   constructor(public empId: number,
-    public f_Name: string,
-    public l_Name: string,
-    public contactNo: number,
-    public username: string,
-    public dept: Dept) { }
+              public f_Name: string,
+              public l_Name: string,
+              public contactNo: number,
+              public username: string,
+              public dept: Dept) { }
 }
 @Component({
   selector: 'app-employee',
@@ -47,13 +47,13 @@ export class EmployeeComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'contactNo', 'dept', 'actionsColumn'];
 
-  constructor(private httpClient: HttpClient,
+  constructor(private httpClientService: HttpClientService,
     private dialog: MatDialog,
     private loginService: AuthenticationService
   ) { }
 
   ngOnInit() {
-    this.getEmps().subscribe(response => this.successResponse(response));
+    this.httpClientService.getEmps().subscribe(response => this.successResponse(response));
   }
 
   openEditEmpDialog(emp: Emp): void {
@@ -77,12 +77,13 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  public getEmps() {
-    return this.httpClient.get<Emp[]>(this.url + '/emps');
-  }
+  // public getEmps() {
+  //   return this.httpClient.get<Emp[]>(this.url + '/emps');
+  // }
 
   public deleteEmp(emp): void {
-    this.httpClient.delete<Emp>(this.url + '/update-emp/' + emp.empId)
+    this.httpClientService.deleteEmp(emp)
+    // this.httpClient.delete<Emp>(this.url + '/update-emp/' + emp.empId)
       .subscribe(data => {
         this.emps = this.emps.filter(a => a !== emp)
       });
@@ -116,7 +117,7 @@ export class EditEmployeeComponent {
 
   constructor(
     private router:Router,
-    private httpClient: HttpClient,
+    private httpClientService: HttpClientService,
     public dialogRef: MatDialogRef<EditEmployeeComponent>,
     @Inject(MAT_DIALOG_DATA) public c_emp: Emp) 
     {
@@ -128,7 +129,8 @@ export class EditEmployeeComponent {
     }
 
   ngOnInit() {
-    this.getDepts().subscribe(response => this.successResponse(response));
+    this.httpClientService.getDepts().subscribe(response => this.successResponse(response));
+    // this.getDepts().subscribe(response => this.successResponse(response));
     // this.selectedDeptId = this.dept.deptId;
   }
 
@@ -136,9 +138,9 @@ export class EditEmployeeComponent {
     return this.depts = response;
   }
 
-  public getDepts() {
-    return this.httpClient.get<Dept[]>(this.url + '/depts');
-  }
+  // public getDepts() {
+  //   return this.httpClient.get<Dept[]>(this.url + '/depts');
+  // }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -149,7 +151,8 @@ export class EditEmployeeComponent {
     this.dept.deptId = this.selectedDeptId;
     this.emp.dept = this.dept;
     console.log(this.emp);
-    this.httpClient.put<Emp>(this.url + '/update-emp', this.emp)
+    this.httpClientService.editEmp(this.emp)
+    // this.httpClient.put<Emp>(this.url + '/update-emp', this.emp)
       .subscribe(data=>{
           this.dialogRef.close();
           this.router.navigate(["/emps"]);}
