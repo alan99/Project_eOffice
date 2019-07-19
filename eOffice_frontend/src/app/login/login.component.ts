@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
       data => {
         sessionStorage.setItem("token",data.token);
         sessionStorage.setItem("role", data.role);
-        console.log(sessionStorage.getItem("token"), sessionStorage.getItem('role'));
+        // console.log(sessionStorage.getItem("token"), sessionStorage.getItem('role'));
         this.router.navigate(["/emps"]);     // redirect to the specific page (ex: ["/emps"])
       }
     );

@@ -38,9 +38,15 @@ export class Emp {
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
+
+
+
 export class EmployeeComponent implements OnInit {
   emps: Emp[];
   url = 'http://localhost:8081/admin';
+
+  displayedColumns: string[] = ['id', 'name', 'contactNo', 'dept', 'actionsColumn'];
+
   constructor(private httpClient: HttpClient,
     private dialog: MatDialog,
     private loginService: AuthenticationService

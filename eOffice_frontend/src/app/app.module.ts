@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DepartmentComponent } from './department/department.component';
 import { AddDepartmentComponent } from './add-department/add-department.component';
 import { RegisterComponent } from './register/register.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -52,6 +53,7 @@ import { RegisterComponent } from './register/register.component';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
     BrowserAnimationsModule
   ],
   entryComponents: [
