@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
+import { HttpClientService } from '../service/http-client.service';
+
 export class Dept {
   constructor(public deptName: string) { }
 }
@@ -15,10 +17,9 @@ export class Dept {
 
 export class AddDepartmentComponent implements OnInit {
   dept:Dept = new Dept('');
-  url = 'http://localhost:8081/admin';
 
   constructor(private router:Router,
-              private httpClient:HttpClient,
+              private httpClientService:HttpClientService,
               public dialogRef: MatDialogRef<AddDepartmentComponent>) { }
 
   ngOnInit() {}
@@ -26,7 +27,7 @@ export class AddDepartmentComponent implements OnInit {
 
   public createDept(){
     console.log(this.dept);
-    return this.httpClient.post<Dept>(this.url + '/add-dept', this.dept)
+    return this.httpClientService.createDept(this.dept)
     .subscribe(data=>{
           console.log('Dept created successfully...');
           this.dialogRef.close();

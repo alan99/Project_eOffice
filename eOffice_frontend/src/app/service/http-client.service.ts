@@ -59,5 +59,9 @@ export class HttpClientService {
     return this.httpClient.get<Dept[]>(this.url + '/depts');
   }
 
-  
+  public createDept(dept){
+    return this.httpClient.post<Dept>(this.url + '/add-dept', dept);
+  }
+
+
 }

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
-// import { HttpClientService } from '../service/http-client.service';
+
+import { HttpClientService } from '../service/http-client.service';
 
 export class Dept{
   constructor(public deptId:number
@@ -23,7 +24,6 @@ export class Emp{
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
-  url = 'http://localhost:8081/admin';
 
   dept:Dept = new Dept(0);
   emp:Emp = new Emp('','',0,'',null);
@@ -31,7 +31,7 @@ export class AddEmployeeComponent implements OnInit {
   selectedDeptId:number;
 
   constructor(private router:Router,
-              private httpClient:HttpClient,
+              private httpClientService:HttpClientService,
               public dialogRef: MatDialogRef<AddEmployeeComponent>) 
   { 
     // this.dept = this.emp.dept;
@@ -39,23 +39,18 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDepts().subscribe(response => this.successResponse(response));
+    this.httpClientService.getDepts().subscribe(response => this.successResponse(response));
   }
   
   successResponse(response) {
     return this.depts = response;
   }
-  
-  public getDepts() {
-    return this.httpClient.get<Dept[]>(this.url + '/depts');
-  }
 
   public createEmp(){
-    // this.emp = emp
     this.dept.deptId = this.selectedDeptId;
     this.emp.dept = this.dept;
     console.log(this.emp);
-    this.httpClient.post(this.url + '/add-emp', this.emp)
+    this.httpClientService.createEmp(this.emp)
     .subscribe(data=>{
           console.log('Emp created successfully...');
     })

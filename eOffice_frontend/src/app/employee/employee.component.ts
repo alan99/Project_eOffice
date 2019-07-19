@@ -43,7 +43,6 @@ export class Emp {
 
 export class EmployeeComponent implements OnInit {
   emps: Emp[];
-  url = 'http://localhost:8081/admin';
 
   displayedColumns: string[] = ['id', 'name', 'contactNo', 'dept', 'actionsColumn'];
 
@@ -77,13 +76,8 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  // public getEmps() {
-  //   return this.httpClient.get<Emp[]>(this.url + '/emps');
-  // }
-
   public deleteEmp(emp): void {
     this.httpClientService.deleteEmp(emp)
-    // this.httpClient.delete<Emp>(this.url + '/update-emp/' + emp.empId)
       .subscribe(data => {
         this.emps = this.emps.filter(a => a !== emp)
       });
@@ -92,12 +86,6 @@ export class EmployeeComponent implements OnInit {
   successResponse(response) {
     return this.emps = response;
   }
-
-  // deleteEmp(emp:Emp):void {
-  //   this.httpClientService.deleteEmp(emp)
-  //   .subscribe(data=>{
-  //     this.emps=this.emps.filter(a=>a !== emp)})
-  // }
 
 }
 
@@ -108,7 +96,6 @@ export class EmployeeComponent implements OnInit {
   templateUrl: './edit-employee.component.html',
 })
 export class EditEmployeeComponent {
-  url = 'http://localhost:8081/admin';
 
   dept: Dept = new Dept(0, '');
   depts: Dept[];
@@ -122,7 +109,6 @@ export class EditEmployeeComponent {
     @Inject(MAT_DIALOG_DATA) public c_emp: Emp) 
     {
       this.emp = c_emp;
-      // this.emp.dept = this.dept;
       this.dept = this.emp.dept;
       this.selectedDeptId = this.dept.deptId;
       console.log(this.emp);
@@ -130,29 +116,22 @@ export class EditEmployeeComponent {
 
   ngOnInit() {
     this.httpClientService.getDepts().subscribe(response => this.successResponse(response));
-    // this.getDepts().subscribe(response => this.successResponse(response));
-    // this.selectedDeptId = this.dept.deptId;
   }
 
   successResponse(response) {
     return this.depts = response;
   }
 
-  // public getDepts() {
-  //   return this.httpClient.get<Dept[]>(this.url + '/depts');
-  // }
-
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   editEmpClick(): void {
-    console.log(this.dept);
+    // console.log(this.dept);
     this.dept.deptId = this.selectedDeptId;
     this.emp.dept = this.dept;
-    console.log(this.emp);
+    // console.log(this.emp);
     this.httpClientService.editEmp(this.emp)
-    // this.httpClient.put<Emp>(this.url + '/update-emp', this.emp)
       .subscribe(data=>{
           this.dialogRef.close();
           this.router.navigate(["/emps"]);}

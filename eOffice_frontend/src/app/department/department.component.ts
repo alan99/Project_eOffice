@@ -22,26 +22,15 @@ export class DepartmentComponent implements OnInit {
 
   constructor(private httpClientService: HttpClientService,
               private dialog: MatDialog,
-              private loginService: AuthenticationService) { 
-      // if (loginService.isAdmin()){
-      //   this.url = 'http://localhost:8081/admin';
-      // } else {
-      //   this.url = 'http://localhost:8081/emp';
-      // }
-  }
+              private loginService: AuthenticationService) { }
 
   ngOnInit() {
     this.httpClientService.getDepts().subscribe(response => this.successResponse(response));
-    // this.getDepts().subscribe(response => this.successResponse(response));
   }
 
   successResponse(response) {
     return this.depts = response;
   }
-
-  // public getDepts() {
-  //   return this.httpClient.get<Dept[]>(this.url + '/depts');
-  // }
 
   openAddDeptDialog(dept: Dept): void {
     const dialogRef = this.dialog.open(AddDepartmentComponent, {
