@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -7,33 +6,31 @@ import { HttpClientService } from '../service/http-client.service';
 import { Dept } from '../model/model.component';
 
 
-
 @Component({
-  selector: 'app-add-department',
-  templateUrl: './add-department.component.html',
+  selector: 'app-edit-department',
+  templateUrl: './edit-department.component.html',
   styleUrls: ['./add-department.component.css']
 })
 
-export class AddDepartmentComponent implements OnInit {
+export class EditDepartmentComponent implements OnInit {
   dept:Dept;
 
   constructor(private router:Router,
               private httpClientService:HttpClientService,
-              public dialogRef: MatDialogRef<AddDepartmentComponent>,
+              public dialogRef: MatDialogRef<EditDepartmentComponent>,
               @Inject(MAT_DIALOG_DATA) public cdept: Dept) {
-                this.dept = cdept;
-                console.log(this.dept);
-             }
+                  this.dept = cdept;
+                  console.log(this.dept);
+               }
 
   ngOnInit() {}
   
 
-  public createDept(){
-    console.log(this.dept);
-    // this.dept = dept;
-    return this.httpClientService.createDept(this.dept)
+  public editDeptClick(){
+    // console.log(this.dept);
+    return this.httpClientService.editDept(this.dept)
     .subscribe(data=>{
-          console.log('Dept created successfully...');
+          console.log('Dept edited successfully...');
           this.dialogRef.close();
           this.router.navigate(["/depts"]);
     })

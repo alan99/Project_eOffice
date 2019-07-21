@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthenticationService } from './authentication.service';
+import { Emp, Dept } from '../model/model.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +13,9 @@ export class User{
               public role:string){}
 }
 
-export class Dept {
-  constructor(public deptId: number,
-              public deptName: string) { }
-}
-
-export class Emp{
-  constructor(public empId: number,
-              public f_Name: string,
-              public l_Name: string,
-              public contactNo: number,
-              public username: string,
-              public dept: Dept) { }
-}
 export class HttpClientService {
 
   url = 'http://localhost:8081';
-  // emp:Emp;
 
   constructor(private httpClient:HttpClient, private loginService:AuthenticationService) {
     if (loginService.isAdmin()){
@@ -51,7 +38,7 @@ export class HttpClientService {
   }
 
   public deleteEmp(emp){
-    return this.httpClient.delete<Emp>(this.url + '/update-emp' + emp.empId);
+    return this.httpClient.delete<Emp>(this.url + '/update-emp/' + emp.empId);
   }
   
 
@@ -63,5 +50,7 @@ export class HttpClientService {
     return this.httpClient.post<Dept>(this.url + '/add-dept', dept);
   }
 
-
+  public editDept(dept){
+    return this.httpClient.put<Dept>(this.url + '/update-dept', dept);
+  }
 }

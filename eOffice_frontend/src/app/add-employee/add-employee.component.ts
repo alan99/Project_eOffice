@@ -1,22 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { HttpClientService } from '../service/http-client.service';
+import { Emp, Dept } from '../model/model.component';
 
-export class Dept{
-  constructor(public deptId:number
-              // public deptName:string
-              ){}
-}
-export class Emp{
-  constructor(public f_Name:string, 
-              public l_Name:string, 
-              public contactNo:number, 
-              public username:string, 
-              public dept:Dept) {}
-}
 
 @Component({
   selector: 'app-add-employee',
@@ -25,17 +14,23 @@ export class Emp{
 })
 export class AddEmployeeComponent implements OnInit {
 
-  dept:Dept = new Dept(0);
-  emp:Emp = new Emp('','',0,'',null);
+  dept:Dept;
+  emp:Emp;
   depts: Dept[];
   selectedDeptId:number;
 
   constructor(private router:Router,
               private httpClientService:HttpClientService,
-              public dialogRef: MatDialogRef<AddEmployeeComponent>) 
+              public dialogRef: MatDialogRef<AddEmployeeComponent>,
+              @Inject(MAT_DIALOG_DATA) public c_emp: Emp) 
   { 
     // this.dept = this.emp.dept;
+    this.emp = c_emp;
     this.selectedDeptId = 1;
+    this.dept = {deptId: this.selectedDeptId, deptName: ''}
+    this.emp.dept= this.dept;
+    
+    console.log(this.emp);
   }
 
   ngOnInit() {
@@ -47,7 +42,10 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   public createEmp(){
+    console.log(this.selectedDeptId);
+    console.log(this.dept);
     this.dept.deptId = this.selectedDeptId;
+    
     this.emp.dept = this.dept;
     console.log(this.emp);
     this.httpClientService.createEmp(this.emp)

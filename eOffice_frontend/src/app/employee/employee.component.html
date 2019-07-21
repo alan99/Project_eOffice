@@ -1,60 +1,14 @@
-<!-- <table border="1" align="center">
 
+<table mat-table [dataSource]="emps" class="mat-elevation-z8" >
 
-
-    <thead></thead>
-    <tr align="center">
-        <th>Emp Id</th>
-        <th>Emp Name</th>
-        <th>Contect Number</th>
-        <th>Department</th>
-        <th>
-            <button mat-raised-button class="btn btn-primary" (click)="openAddEmpDialog()">
-                Add
-            </button>
-        </th>
-    </tr>
-
-    <tbody *ngIf="loginService.isUserLoggedIn() && loginService.isAdmin()">
-        <tr *ngFor="let emp of emps">
-            <td align="center">{{emp.empId}}</td>
-            <td align="center">{{emp.f_Name}} {{emp.l_Name}}</td>
-            <td align="right">{{emp.contactNo}}</td>
-            <td align="center">{{emp.dept.deptName}}</td>
-            <td align="center">
-                <button mat-raised-button class="btn btn-primary" (click)="openEditEmpDialog(emp)">
-                    Edit
-                </button>
-            </td>
-            <td align="center">
-                <button mat-raised-button class="btn btn-danger" (click)="deleteEmp(emp)">
-                    Delete
-                </button>
-            </td>
-        </tr>
-        <tr align="center">
-            <th>
-                <button mat-raised-button class="btn btn-primary" (click)="openAddEmpDialog()">
-                    Add
-                </button>
-            </th>
-        </tr>
-    </tbody>
-
-
-</table> -->
-
-
-<table mat-table [dataSource]="emps" class="mat-elevation-z8">
-
-
+    
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>
         <td mat-cell *matCellDef="let emp"> {{emp.empId}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <th mat-header-cell *matHeaderCellDef > Name </th>
         <td mat-cell *matCellDef="let emp"> {{emp.f_Name}} {{emp.l_Name}} </td>
     </ng-container>
 
@@ -70,12 +24,38 @@
 
     <ng-container matColumnDef="actionsColumn">
 
-        <mat-header-cell *matHeaderCellDef>
-            <button mat-raised-button class="btn btn-primary" (click)="openAddEmpDialog()">Create new</button>
+        <mat-header-cell *matHeaderCellDef >
+            <!-- <button mat-raised-button class="btn btn-primary" 
+            *ngIf="loginService.isAdmin()" 
+            (click)="openAddEmpDialog()">Create new</button> -->
+
+            <button mat-icon-button 
+                *ngIf="loginService.isAdmin()" 
+                (click)="openAddEmpDialog()">
+                    <mat-icon color="primary">person_add</mat-icon>
+                </button>
         </mat-header-cell>
+
         <mat-cell *matCellDef="let emp">
-            <button mat-raised-button class="btn btn-primary" (click)="openEditEmpDialog(emp)">Edit</button>
-            <button mat-raised-button class="btn btn-danger" (click)="deleteEmp(emp)">Delete</button>
+            <!-- <button mat-raised-button class="btn btn-primary" 
+            *ngIf="loginService.isAdmin()" 
+            (click)="openEditEmpDialog(emp)">Edit</button> -->
+<!-- 
+            <button mat-raised-button class="btn btn-danger" 
+            *ngIf="loginService.isAdmin()" 
+            (click)="deleteEmp(emp)">Delete</button> -->
+
+            <button mat-icon-button 
+            *ngIf="loginService.isAdmin()" 
+            (click)="openEditEmpDialog(emp)">
+                <mat-icon color="green" >edit</mat-icon>
+            </button>
+
+            <button mat-icon-button 
+            *ngIf="loginService.isAdmin()" 
+            (click)="deleteEmp(emp)">
+                <mat-icon color="warn" >delete</mat-icon>
+            </button>
         </mat-cell>
     </ng-container>
 
@@ -84,3 +64,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+

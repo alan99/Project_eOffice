@@ -15,16 +15,19 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component'
 import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
 
-import { MatDialogModule, MatButtonModule } from '@angular/material';
+import { MatDialogModule, MatButtonModule, MatSortModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon'
 import { DepartmentComponent } from './department/department.component';
 import { AddDepartmentComponent } from './add-department/add-department.component';
 import { RegisterComponent } from './register/register.component';
 import { MatTableModule } from '@angular/material/table';
+import { ModelComponent } from './model/model.component';
+import { EditDepartmentComponent } from './add-department/edit-department.component';
 
 
 
@@ -40,7 +43,9 @@ import { MatTableModule } from '@angular/material/table';
     EditEmployeeComponent,
     DepartmentComponent,
     AddDepartmentComponent,
-    RegisterComponent
+    EditDepartmentComponent,
+    RegisterComponent,
+    ModelComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,8 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatSortModule,
+    MatIconModule,
     BrowserAnimationsModule
   ],
   entryComponents: [
@@ -66,6 +73,7 @@ import { MatTableModule } from '@angular/material/table';
       useClass: BasicAuthHttpInterceptorService,
       multi: true
     }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [MatSortModule]
 })
 export class AppModule { }

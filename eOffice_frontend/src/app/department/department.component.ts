@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AddDepartmentComponent } from '../add-department/add-department.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { AuthenticationService } from '../service/authentication.service';
 import { HttpClientService } from '../service/http-client.service';
+import { Dept } from '../model/model.component';
+import { EditDepartmentComponent } from '../add-department/edit-department.component';
+import { MatIconModule } from '@angular/material/icon'
 
-export class Dept {
-  constructor(public deptId: number,
-    public deptName: string) { }
-}
 
 @Component({
   selector: 'app-department',
@@ -17,7 +16,7 @@ export class Dept {
   styleUrls: ['./department.component.css']
 })
 export class DepartmentComponent implements OnInit {
-  url:string;
+  displayedColumns: string[] = ['id', 'name', 'actionsColumn'];
   depts:Dept[];
 
   constructor(private httpClientService: HttpClientService,
@@ -32,9 +31,22 @@ export class DepartmentComponent implements OnInit {
     return this.depts = response;
   }
 
-  openAddDeptDialog(dept: Dept): void {
+  openAddDeptDialog(): void {
+    let dept:Dept = {deptId: 0, deptName: ''}
     const dialogRef = this.dialog.open(AddDepartmentComponent, {
-      width: '450px'
+      width: '450px',
+      data: dept
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openEditDeptDialog(dept: Dept): void {
+    const dialogRef = this.dialog.open(EditDepartmentComponent, {
+      width: '450px',
+      data: dept
     });
 
     dialogRef.afterClosed().subscribe(result => {

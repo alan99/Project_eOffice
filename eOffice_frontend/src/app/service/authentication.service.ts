@@ -3,16 +3,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-export class User {
-  constructor(public status: string) { }
+// export class User {
+//   constructor(public status: string) { }
+// }
+
+// export class JwtResponse {
+//   constructor(public token: string, public role: string) { }
+// }
+export interface JwtResponse {
+  token: string;
+  role: string;
 }
 
-export class JwtResponse {
-  constructor(public token: string, public role: string) { }
-}
+// export class JwtRequest {
+//   constructor(public username: string, public password: string) { }
+// }
 
-export class JwtRequest {
-  constructor(public username: string, public password: string) { }
+export interface JwtRequest {
+  username: string;
+  password: string;
 }
 
 const HttpOptions = {
@@ -29,11 +38,16 @@ export class AuthenticationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  authenticate(username: string, password: string) {
-    sessionStorage.setItem('username', username);
-    let request = new JwtRequest(username, password);
+  // request:JwtRequest;
+
+  authenticate(id: string, pw: string) {
+    sessionStorage.setItem('username', id);
+    // let request = new JwtRequest(username, password);
+    let request:JwtRequest = {username:id, password:pw};
+
 
     return this.response(request);
+    // return this.response(request);
 
   }
 

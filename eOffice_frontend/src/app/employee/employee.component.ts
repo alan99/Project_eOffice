@@ -1,6 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon'
 
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../service/authentication.service';
@@ -8,31 +9,11 @@ import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { Router } from '@angular/router';
 
 import { HttpClientService } from '../service/http-client.service';
+import { MatSort, MatTableDataSource } from '@angular/material';
+import { Emp, Dept } from '../model/model.component';
 
-export interface DialogDataDept {
-  deptId: number,
-  deptName: string
-}
-export interface DialogData {
-  empId: number,
-  f_Name: string,
-  l_Name: string,
-  contactNo: number,
-  username: string,
-  dept: DialogDataDept
-}
-export class Dept {
-  constructor(public deptId: number,
-              public deptName: string) { }
-}
-export class Emp {
-  constructor(public empId: number,
-              public f_Name: string,
-              public l_Name: string,
-              public contactNo: number,
-              public username: string,
-              public dept: Dept) { }
-}
+
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -43,7 +24,6 @@ export class Emp {
 
 export class EmployeeComponent implements OnInit {
   emps: Emp[];
-
   displayedColumns: string[] = ['id', 'name', 'contactNo', 'dept', 'actionsColumn'];
 
   constructor(private httpClientService: HttpClientService,
@@ -51,9 +31,16 @@ export class EmployeeComponent implements OnInit {
     private loginService: AuthenticationService
   ) { }
 
+  // @ViewChild(MatSort, {static: true}) sort: MatSort;
+  
+
   ngOnInit() {
     this.httpClientService.getEmps().subscribe(response => this.successResponse(response));
   }
+
+  // ngAfterViewInit(): void {
+  //   this.dataSource.sort = this.sort;
+  // }
 
   openEditEmpDialog(emp: Emp): void {
     const dialogRef = this.dialog.open(EditEmployeeComponent, {
@@ -67,8 +54,17 @@ export class EmployeeComponent implements OnInit {
   }
 
   openAddEmpDialog(): void {
+    let emp:Emp = {
+      empId: 0,
+      f_Name: '',
+      l_Name: '',
+      contactNo: 0,
+      username: '',
+      dept: null
+    }
     const dialogRef = this.dialog.open(AddEmployeeComponent, {
-      width: '450px'
+      width: '450px',
+      data: emp
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -97,9 +93,9 @@ export class EmployeeComponent implements OnInit {
 })
 export class EditEmployeeComponent {
 
-  dept: Dept = new Dept(0, '');
+  dept: Dept; 
   depts: Dept[];
-  emp: Emp = new Emp(0, '', '', 0, '', null);
+  emp: Emp; 
   selectedDeptId: number;
 
   constructor(
