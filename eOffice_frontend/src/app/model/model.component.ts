@@ -14,6 +14,17 @@ export interface Emp {
   dept: Dept;
 }
 
+export interface Task {
+  taskId: number;
+  taskName: string;
+  taskText: string;
+  startDate: string;
+  endDate: string;
+  leader: Emp;
+  emp: Emp;
+  taskStatus: string;
+}
+
 @Component({
   selector: 'app-model',
   templateUrl: './model.component.html',

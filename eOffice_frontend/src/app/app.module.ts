@@ -6,16 +6,17 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { EmployeeComponent, EditEmployeeComponent } from './employee/employee.component';
+import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import { HttpClientService } from './service/http-client.service';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
-import { FormsModule } from '@angular/forms';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component'
 import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
 
-import { MatDialogModule, MatButtonModule, MatSortModule } from '@angular/material';
+import { MatDialogModule, MatButtonModule, MatSortModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,11 +24,15 @@ import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon'
 import { DepartmentComponent } from './department/department.component';
-import { AddDepartmentComponent } from './add-department/add-department.component';
+import { AddDepartmentComponent } from './department/add-department/add-department.component';
 import { RegisterComponent } from './register/register.component';
 import { MatTableModule } from '@angular/material/table';
 import { ModelComponent } from './model/model.component';
-import { EditDepartmentComponent } from './add-department/edit-department.component';
+import { EditDepartmentComponent } from './department/add-department/edit-department.component';
+import { DatepickerApiComponent } from './datepicker-api/datepicker-api.component';
+import { TaskComponent } from './task/task.component';
+import { AddTaskComponent } from './task/add-task/add-task.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -44,8 +49,11 @@ import { EditDepartmentComponent } from './add-department/edit-department.compon
     DepartmentComponent,
     AddDepartmentComponent,
     EditDepartmentComponent,
+    TaskComponent,
     RegisterComponent,
-    ModelComponent
+    ModelComponent,
+    DatepickerApiComponent,
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +69,9 @@ import { EditDepartmentComponent } from './add-department/edit-department.compon
     MatTableModule,
     MatSortModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule
   ],
   entryComponents: [
@@ -72,8 +83,13 @@ import { EditDepartmentComponent } from './add-department/edit-department.compon
       provide: HTTP_INTERCEPTORS,
       useClass: BasicAuthHttpInterceptorService,
       multi: true
-    }],
+    },
+    DatePipe
+  ],
   bootstrap: [AppComponent],
-  exports: [MatSortModule]
+  exports: [
+    MatSortModule,
+    MatDatepickerModule
+  ]
 })
 export class AppModule { }

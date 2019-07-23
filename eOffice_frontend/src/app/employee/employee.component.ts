@@ -5,9 +5,10 @@ import { MatIconModule } from '@angular/material/icon'
 
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../service/authentication.service';
-import { AddEmployeeComponent } from '../add-employee/add-employee.component';
+
 import { Router } from '@angular/router';
 
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { HttpClientService } from '../service/http-client.service';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { Emp, Dept } from '../model/model.component';

@@ -20,6 +20,10 @@
             Department List
         </a>
 
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/tasks" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            Task List
+        </a>
+
         <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/register" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
             Register
         </a>

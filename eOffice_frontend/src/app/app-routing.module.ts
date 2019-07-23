@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EmployeeComponent, EditEmployeeComponent } from 'src/app/employee/employee.component'
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { EmployeeComponent, EditEmployeeComponent } from './employee/employee.component'
+import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { DepartmentComponent } from './department/department.component';
-import { AddDepartmentComponent } from './add-department/add-department.component';
+import { AddDepartmentComponent } from './department/add-department/add-department.component';
 import { RegisterComponent } from './register/register.component';
-import { EditDepartmentComponent } from './add-department/edit-department.component';
+import { EditDepartmentComponent } from './department/add-department/edit-department.component';
+import { TaskComponent } from './task/task.component';
+import { AddTaskComponent } from './task/add-task/add-task.component';
 
 const routes: Routes = [
   {path:'emps',component:EmployeeComponent},
@@ -16,6 +18,8 @@ const routes: Routes = [
   {path:'depts',component:DepartmentComponent},
   {path:'addDept',component:AddDepartmentComponent},
   {path:'editDept',component:EditDepartmentComponent},
+  {path:'tasks',component:TaskComponent},
+  {path:'addtask',component:AddTaskComponent},
   {path:'login',component:LoginComponent},
   {path:'logout',component:LogoutComponent},
   {path:'register',component:RegisterComponent}

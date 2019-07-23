@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AddDepartmentComponent } from '../add-department/add-department.component';
+import { AddDepartmentComponent } from './add-department/add-department.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { AuthenticationService } from '../service/authentication.service';
 import { HttpClientService } from '../service/http-client.service';
 import { Dept } from '../model/model.component';
-import { EditDepartmentComponent } from '../add-department/edit-department.component';
+import { EditDepartmentComponent } from './add-department/edit-department.component';
 import { MatIconModule } from '@angular/material/icon'
 
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthenticationService } from './authentication.service';
-import { Emp, Dept } from '../model/model.component';
+import { Emp, Dept, Task } from '../model/model.component';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +52,14 @@ export class HttpClientService {
 
   public editDept(dept){
     return this.httpClient.put<Dept>(this.url + '/update-dept', dept);
+  }
+
+
+  public getTasks(){
+    return this.httpClient.get<Task[]>(this.url + '/tasks');
+  }
+
+  public createTask(task){
+    return this.httpClient.post<Task>(this.url + '/assign-task', task);
   }
 }

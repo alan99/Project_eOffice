@@ -27,12 +27,13 @@ public class TaskService {
 	}
 	
 	public String assignTask(Task task) {
-		Emp leader = empRepo.findById(task.getLeader().getEmpId()).orElse(null);
+		Emp leader = empRepo.findByUsername(task.getLeader().getUsername());
 		Emp emp= empRepo.findById(task.getEmp().getEmpId()).orElse(null);
 		
 		if (leader != null && emp != null) {
 			task.setLeader(leader);
 			task.setEmp(emp);
+			task.setTaskStatus("Uncompleted");
 			taskRepo.save(task);
 			
 			String receiver = emp.getUsername();
