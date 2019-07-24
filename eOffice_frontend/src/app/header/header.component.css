@@ -6,10 +6,9 @@
 }
 
 .logo img {
-    width: 100px;
-    
+    width: 150px;
 }
 
-.mat-tab-label-active{
-    background-color: white;
+.main-toolbar{
+    background:transparent
 }

@@ -36,9 +36,9 @@ public class AdminRestController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/add-emp")
-	public ResponseEntity<?> newEmp(@RequestBody Emp emp) {
-		adminService.addEmp(emp);
-		return ResponseEntity.ok("saved");
+	public Emp newEmp(@RequestBody Emp emp) {
+		return adminService.addEmp(emp);
+//		return ResponseEntity.ok("saved");
 	}
 	
 	@PutMapping("/update-emp")
@@ -69,16 +69,16 @@ public class AdminRestController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/add-dept")
-	ResponseEntity<?> newDept(@RequestBody Dept dept) {
-		return ResponseEntity.ok(deptService.addDept(dept));
+	public Dept newDept(@RequestBody Dept dept) {
+		return deptService.addDept(dept);
 	}
 	
 
 	@PutMapping("/update-dept")
-	public ResponseEntity<?> updateDept(@RequestBody Dept dept) {
-		deptService.updateDept(dept);
+	public Dept updateDept(@RequestBody Dept dept) {
+		return deptService.updateDept(dept);
 		
-		return ResponseEntity.ok("The information of dept is updated.");
+//		return ResponseEntity.ok("The information of dept is updated.");
 	}
 	
 	//======================================== control task info ================================================
@@ -95,7 +95,16 @@ public class AdminRestController {
 		return ResponseEntity.ok(taskService.assignTask(task));
 	}
 	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/update-task")
+	public Task updateTask(@RequestBody Task task){
+		return taskService.updateTask(task);
+	}
 	
+	@DeleteMapping("/tasks/{id}")
+	public ResponseEntity<?> deleteTaskById(@PathVariable long id) {
+		return ResponseEntity.ok(taskService.removeTask(id));
+	}
 	
 	//======================================== control room ticket info ================================================
 	

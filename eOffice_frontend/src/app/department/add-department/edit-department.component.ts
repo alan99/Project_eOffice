@@ -32,7 +32,7 @@ export class EditDepartmentComponent implements OnInit {
     .subscribe(data=>{
           console.log('Dept edited successfully...');
           this.dialogRef.close();
-          this.router.navigate(["/depts"]);
+          // this.router.navigate(["/depts"]);
     })
   }
 

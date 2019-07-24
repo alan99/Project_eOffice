@@ -16,7 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component'
 import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
 
-import { MatDialogModule, MatButtonModule, MatSortModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatDialogModule, MatButtonModule, MatSortModule, MatDatepickerModule, MatNativeDateModule, MatToolbarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -70,6 +70,7 @@ import { DatePipe } from '@angular/common';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatToolbarModule,
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],

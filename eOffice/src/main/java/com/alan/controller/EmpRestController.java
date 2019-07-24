@@ -55,7 +55,7 @@ public class EmpRestController {
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/respond-task")
+	@PostMapping("/update-task")
 	public ResponseEntity<?>  respondTask(@RequestBody Task task){
 		
 		taskService.respondTask(task);

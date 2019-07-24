@@ -8,6 +8,7 @@ import { HttpClientService } from '../service/http-client.service';
 import { Dept } from '../model/model.component';
 import { EditDepartmentComponent } from './add-department/edit-department.component';
 import { MatIconModule } from '@angular/material/icon'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,9 @@ export class DepartmentComponent implements OnInit {
 
   constructor(private httpClientService: HttpClientService,
               private dialog: MatDialog,
-              private loginService: AuthenticationService) { }
+              private loginService: AuthenticationService,
+              private router: Router
+              ) { }
 
   ngOnInit() {
     this.httpClientService.getDepts().subscribe(response => this.successResponse(response));
@@ -40,6 +43,7 @@ export class DepartmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.router.navigate(["/depts"]);
     });
   }
 
@@ -51,6 +55,7 @@ export class DepartmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.router.navigate(["/depts"]);
     });
   }
 }

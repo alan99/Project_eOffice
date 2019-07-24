@@ -59,8 +59,9 @@ public class TaskService {
 	}
 	
 	public void respondTask(Task task) {
-		Task updatedTask = taskRepo.findById(task.getTaskId()).orElse(null);
-		updatedTask.setTaskStatus(task.getTaskStatus());
+		Task updatedTask = updateTask(task); 
+//				taskRepo.findById(task.getTaskId()).orElse(null);
+//		updatedTask.setTaskStatus(task.getTaskStatus());
 		
 		taskRepo.save(updatedTask);
 		
@@ -72,6 +73,23 @@ public class TaskService {
 						+ task.getEmp().getF_Name() + "\n";
 		
 		mailService.autoSendingEmail(receiver, subject, content);
+	}
+
+	public Task removeTask(long id) {
+		Task task = taskRepo.findById(id).orElse(null);
+		if (task == null) {
+			return null;
+		} else {
+			taskRepo.deleteById(id);
+			return task;
+		}
+	}
+
+	public Task updateTask(Task task) {
+		Task oldTask = taskRepo.findById(task.getTaskId()).orElse(null);
+		oldTask.setTaskStatus(task.getTaskStatus());
+		
+		return taskRepo.save(task);
 	}
 	
 }

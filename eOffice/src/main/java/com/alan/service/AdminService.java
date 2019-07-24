@@ -39,7 +39,7 @@ public class AdminService {
 		return empRepo.findAll();
 	}
 	
-	public void addEmp(Emp emp) {
+	public Emp addEmp(Emp emp) {
 		Dept dept = deptRepo.findById(emp.getDept().getDeptId()).orElse(null);
 		emp.setDept(dept);
 //		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo(), emp.getUsername(), dept);
@@ -50,6 +50,8 @@ public class AdminService {
 		String content = "Register Link";
 		
 		mailService.autoSendingEmail(receiver, subject, content);
+		
+		return emp;
 	}
 	
 	public void authorizeAdminRight(Emp emp) {
@@ -57,11 +59,11 @@ public class AdminService {
 		userDetailsService.authorizeAdmin(username);
 	}
 	
-	public String updateEmp(Emp newEmp) {
+	public Emp updateEmp(Emp newEmp) {
 		Emp oldEmp = empRepo.findById(newEmp.getEmpId()).orElse(null);
 		
 		if (oldEmp == null) {
-			return "There is no employee. Please try again.";
+			return null;
 		} else {
 			if (newEmp.getF_Name() != null)		oldEmp.setF_Name(newEmp.getF_Name());
 			if (newEmp.getL_Name() != null)		oldEmp.setL_Name(newEmp.getL_Name());
@@ -72,9 +74,7 @@ public class AdminService {
 			Dept dept = deptRepo.findById(newEmp.getDept().getDeptId()).orElse(null);
 			if (newEmp.getDept() != null)		oldEmp.setDept(dept);
 			
-			empRepo.save(oldEmp);
-			
-			return "The information of employee with ID " + oldEmp.getEmpId() + " is updated.";
+			return empRepo.save(oldEmp);
 		}
 	}
 	
@@ -88,20 +88,19 @@ public class AdminService {
 		empService.message(updatedForm, msg, updatedForm.getEmp());
 	}
 	
-	public String removeEmp(long id) {
+	public Emp removeEmp(long id) {
 		Emp emp = empRepo.findById(id).orElse(null);
 		
 		if (emp == null) {
-			return "ID " + id + " is invalid. Please try the other.";
+			return null;
 		} else {
-			String empFName = emp.getF_Name(), empLName = emp.getL_Name();
 
 			User user = userRepo.findByUsername(emp.getUsername());
 			
 			empRepo.deleteById(emp.getEmpId());
 			userRepo.deleteById(user.getId());
 			
-			return "Employee " + empFName + " " + empLName + " is removed from the database";
+			return emp;
 		}
 	}
 	

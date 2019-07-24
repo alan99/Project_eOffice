@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { AuthenticationService } from '../service/authentication.service';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { EmployeeComponent } from '../employee/employee.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -14,11 +15,12 @@ import { EmployeeComponent } from '../employee/employee.component';
 export class TaskComponent implements OnInit {
   emp:Emp;
   tasks: Task[];
-  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'leader', 'emp', 'status'];//, 'actionsColumn'];
+  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'leader', 'emp', 'status', 'actionsColumn'];
   
   constructor(private httpClientService: HttpClientService,
               private dialog: MatDialog,
-              private loginService: AuthenticationService) { }
+              private loginService: AuthenticationService,
+              private router: Router) { }
 
   ngOnInit() {
     if (this.loginService.isAdmin()){
@@ -59,5 +61,26 @@ export class TaskComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  public respondTask(task): void {
+    if (this.loginService.isAdmin()){
+      task.taskStatus = "Approved";
+    } else {
+      task.taskStatus = "Finished";
+    }
+    
+    console.log(task);
+    this.httpClientService.updateTask(task).subscribe();
+  }
+
+  
+
+  public deleteTask(task): void {
+    this.httpClientService.deleteTask(task)
+      .subscribe(data => {
+        this.tasks = this.tasks.filter(a => a !== task);
+        this.router.navigate(["/tasks"]);
+      });
   }
 }

@@ -28,8 +28,9 @@ export class EmployeeComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'contactNo', 'dept', 'actionsColumn'];
 
   constructor(private httpClientService: HttpClientService,
-    private dialog: MatDialog,
-    private loginService: AuthenticationService
+              private dialog: MatDialog,
+              private loginService: AuthenticationService,
+              private router: Router
   ) { }
 
   // @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -51,6 +52,7 @@ export class EmployeeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.router.navigate(["/emps"]);
     });
   }
 
@@ -70,13 +72,15 @@ export class EmployeeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.router.navigate(["/emps"]);
     });
   }
 
   public deleteEmp(emp): void {
     this.httpClientService.deleteEmp(emp)
       .subscribe(data => {
-        this.emps = this.emps.filter(a => a !== emp)
+        this.emps = this.emps.filter(a => a !== emp);
+        this.router.navigate(["/emps"]);
       });
   }
 
@@ -131,9 +135,10 @@ export class EditEmployeeComponent {
     this.httpClientService.editEmp(this.emp)
       .subscribe(data=>{
           this.dialogRef.close();
-          this.router.navigate(["/emps"]);}
+          // this.router.navigate(["/emps"]);
+        }
       );
 
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 }

@@ -10,13 +10,15 @@
         </ul>
         
     </nav> -->
-    <div>HEADER</div>
-    
-    <nav mat-tab-nav-bar mat-align-tabs="end" animationDuration="200ms">
-            <a mat-tab-link class="logo" [routerLink]="'/'">
-                <img src="/assets/EOffice_Logo.jpg">
-            </a>
+    <!-- <div>HEADER</div> -->
 
+    <mat-toolbar class="main-toolbar">
+        <div class="logo" [routerLink]="'/'">
+            <img src="/assets/EOffice_Logo.jpg">
+        </div>
+    </mat-toolbar>
+
+    <nav mat-tab-nav-bar mat-align-tabs="end" animationDuration="200ms">
         <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/emps" routerLinkActive
             #rla="routerLinkActive" [active]="rla.isActive">
             Employee List

@@ -66,4 +66,12 @@ export class HttpClientService {
   public createTask(task){
     return this.httpClient.post<Task>(this.url + '/assign-task', task);
   }
+
+  public updateTask(task){
+    return this.httpClient.post<Task>(this.url + '/update-task', task);
+  }
+
+  public deleteTask(task){
+    return this.httpClient.delete<Task>(this.url + '/tasks/' + task.taskId);
+  }
 }
