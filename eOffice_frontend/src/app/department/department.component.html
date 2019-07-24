@@ -42,25 +42,21 @@
 
     <ng-container matColumnDef="actionsColumn">
 
-        <mat-header-cell *matHeaderCellDef>
-                <button mat-icon-button 
-                *ngIf="loginService.isAdmin()" 
-                (click)="openAddDeptDialog()">
+        <th mat-header-cell *matHeaderCellDef>
+            <button mat-icon-button *ngIf="loginService.isAdmin()" (click)="openAddDeptDialog()">
                 <!-- <i class="fas fa-plus"></i> -->
-                    <mat-icon color="primary">note_add</mat-icon>
-                </button>
+                <mat-icon color="primary">note_add</mat-icon>
+            </button>
 
             <!-- <button mat-raised-button class="btn btn-primary" *ngIf="loginService.isAdmin()"
                 (click)="openAddDeptDialog()"> Add </button> -->
-        </mat-header-cell>
+        </th>
 
-        <mat-cell *matCellDef="let dept">
-            <button mat-icon-button 
-            *ngIf="loginService.isAdmin()" 
-            (click)="openEditDeptDialog(dept)">
-                <mat-icon color="green" >edit</mat-icon>
+        <td mat-cell *matCellDef="let dept">
+            <button mat-icon-button *ngIf="loginService.isAdmin()" (click)="openEditDeptDialog(dept)">
+                <mat-icon color="green">edit</mat-icon>
             </button>
-        </mat-cell>
+        </td>
     </ng-container>
 
 

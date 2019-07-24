@@ -22,14 +22,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material';
 import { DepartmentComponent } from './department/department.component';
 import { AddDepartmentComponent } from './department/add-department/add-department.component';
 import { RegisterComponent } from './register/register.component';
 import { MatTableModule } from '@angular/material/table';
 import { ModelComponent } from './model/model.component';
 import { EditDepartmentComponent } from './department/add-department/edit-department.component';
-import { DatepickerApiComponent } from './datepicker-api/datepicker-api.component';
 import { TaskComponent } from './task/task.component';
 import { AddTaskComponent } from './task/add-task/add-task.component';
 import { DatePipe } from '@angular/common';
@@ -52,7 +52,6 @@ import { DatePipe } from '@angular/common';
     TaskComponent,
     RegisterComponent,
     ModelComponent,
-    DatepickerApiComponent,
     AddTaskComponent
   ],
   imports: [

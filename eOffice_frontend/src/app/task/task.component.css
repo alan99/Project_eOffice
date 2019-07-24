@@ -1,3 +1,15 @@
 table {
-    width: 100%;
+    min-width: 20%;
   }
+
+  .mat-raised-button{
+    background-color:green;
+    color: white;
+} 
+
+.mat-header-cell {
+  padding: 12px;
+}
+.mat-cell {
+  padding: 12px;
+}

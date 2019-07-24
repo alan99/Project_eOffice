@@ -57,7 +57,7 @@ public class Task {
 		this.endDate = endDate;
 		this.leader = leader;
 		this.emp = emp;
-		this.taskStatus = "Uncompleted";
+//		this.taskStatus = "Uncompleted";
 	}
 
 

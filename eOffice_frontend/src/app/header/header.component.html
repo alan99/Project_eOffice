@@ -10,29 +10,40 @@
         </ul>
         
     </nav> -->
+    <div>HEADER</div>
+    
+    <nav mat-tab-nav-bar mat-align-tabs="end" animationDuration="200ms">
+            <a mat-tab-link class="logo" [routerLink]="'/'">
+                <img src="/assets/EOffice_Logo.jpg">
+            </a>
 
-    <nav mat-tab-nav-bar mat-align-tabs="end" animationDuration="500ms">
-        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/emps" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/emps" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
             Employee List
         </a>
 
-        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/depts" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/depts" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
             Department List
         </a>
 
-        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/tasks" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/tasks" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
             Task List
         </a>
 
-        <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/register" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/register" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
             Register
         </a>
 
-        <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
             Login
         </a>
 
-        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
             Logout
         </a>
     </nav>

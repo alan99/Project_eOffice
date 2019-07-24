@@ -49,7 +49,7 @@ public class EmpRestController {
 	
 	
 	
-	@GetMapping("/tasks")
+	@PostMapping("/tasks")
 	public List<Task> findAllEmpTasks(@RequestBody Emp emp){
 		return empService.listAllTasks(emp);
 	}

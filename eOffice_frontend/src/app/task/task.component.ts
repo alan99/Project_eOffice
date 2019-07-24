@@ -4,6 +4,7 @@ import { HttpClientService } from '../service/http-client.service';
 import { MatDialog } from '@angular/material';
 import { AuthenticationService } from '../service/authentication.service';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { EmployeeComponent } from '../employee/employee.component';
 
 @Component({
   selector: 'app-task',
@@ -11,7 +12,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-
+  emp:Emp;
   tasks: Task[];
   displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate', 'leader', 'emp', 'status'];//, 'actionsColumn'];
   
@@ -20,7 +21,20 @@ export class TaskComponent implements OnInit {
               private loginService: AuthenticationService) { }
 
   ngOnInit() {
-    this.httpClientService.getTasks().subscribe(response => this.successResponse(response));
+    if (this.loginService.isAdmin()){
+      this.httpClientService.getTasks().subscribe(response => this.successResponse(response));
+    } else {
+      this.emp = {
+                  empId: 0,
+                  f_Name: '',
+                  l_Name: '',
+                  contactNo: 0,
+                  username: sessionStorage.getItem('username'),
+                  dept: null
+            }
+      this.httpClientService.getEmpTasks(this.emp).subscribe(response => this.successResponse(response));
+    }
+    
   }
 
   successResponse(response) {

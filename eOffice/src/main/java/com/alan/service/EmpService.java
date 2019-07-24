@@ -57,7 +57,7 @@ public class EmpService {
     
     
     public List<Task> listAllTasks(Emp emp){
-    	return taskRepo.findByEmp(empRepo.findById(emp.getEmpId()).orElse(null));
+    	return taskRepo.findByEmp(empRepo.findByUsername(emp.getUsername()));
     }
     
     

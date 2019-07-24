@@ -59,6 +59,10 @@ export class HttpClientService {
     return this.httpClient.get<Task[]>(this.url + '/tasks');
   }
 
+  public getEmpTasks(emp){
+    return this.httpClient.post<Task[]>(this.url + '/tasks', emp);
+  }
+
   public createTask(task){
     return this.httpClient.post<Task>(this.url + '/assign-task', task);
   }

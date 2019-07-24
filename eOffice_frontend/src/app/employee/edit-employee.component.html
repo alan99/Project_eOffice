@@ -36,9 +36,9 @@
             </mat-select>
         </mat-form-field>
 
-        <div mat-dialog-actions>
-            <button mat-button (click)="onNoClick()">Cancel</button>
-            <button mat-button (click)="editEmpClick()">Save</button>
+        <div mat-dialog-actions align="center">
+            <button mat-raised-button color="primary" (click)="editEmpClick()">Save</button>
+            <button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
         </div>
         <!-- <button class="btn btn-success" (click)="createEmp()">Create</button> -->
     </form>
