@@ -1,0 +1,86 @@
+<!-- <ngb-timepicker [(ngModel)]="showTime" [seconds]="false" [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker>
+
+<div class="row">
+    <div class="col-sm-3">
+        <label for="changeHourStep">Hour Step</label>
+        <input id="changeHourStep" type="number" class="form-control form-control-sm" [(ngModel)]="hourStep" />
+    </div>
+    <div class="col-sm-3">
+        <label for="changeMinuteStep">Minute Step</label>
+        <input id="changeMinuteStep" type="number" class="form-control form-control-sm" [(ngModel)]="minuteStep" />
+    </div>
+</div>
+<br> -->
+
+<table mat-table [dataSource]="tickets" class="mat-elevation-z8" align="center" cellpadding="5">
+
+
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let ticket"> {{ticket.ticketId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="room">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let ticket"> {{ticket.room.roomName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="startTime">
+        <th mat-header-cell *matHeaderCellDef> Start Time </th>
+        <td mat-cell *matCellDef="let ticket"> {{ticket.startTime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="endTime">
+        <th mat-header-cell *matHeaderCellDef> End Time </th>
+        <td mat-cell *matCellDef="let ticket"> {{ticket.endTime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="admin">
+        <th mat-header-cell *matHeaderCellDef> Manager </th>
+        <td mat-cell *matCellDef="let ticket"> {{ticket.admin.f_Name}} {{ticket.admin.l_Name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="emp">
+        <th mat-header-cell *matHeaderCellDef> Emp </th>
+        <td mat-cell *matCellDef="let ticket"> {{ticket.emp.f_Name}} {{ticket.emp.l_Name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let ticket"> {{ticket.status}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actionsColumn">
+    
+            <th mat-header-cell *matHeaderCellDef>
+                <button mat-icon-button align="right" 
+                *ngIf="loginService.isAdmin()" (click)="openBookRoomDialog()">
+                    <mat-icon color="primary">note_add</mat-icon> Book Room
+                </button>
+            </th>
+    
+            <td mat-cell *matCellDef="let ticket">
+                <button mat-raised-button align="right" 
+                *ngIf="loginService.isAdmin()" (click)="respondTicket(ticket)">
+                    Approve
+                </button>
+    
+                <button mat-icon-button align="right" 
+                *ngIf="loginService.isAdmin()" (click)="deleteTicket(ticket)">
+                    <mat-icon color="warn">delete</mat-icon>
+                </button>
+            </td>
+    
+        </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<!-- <mat-header-cell *matHeaderCellDef> -->
+<!-- <button mat-icon-button *ngIf="loginService.isAdmin()" (click)="openAddTaskDialog()">
+        <mat-icon color="primary">note_add</mat-icon>
+    </button> -->
+<!-- </mat-header-cell> -->

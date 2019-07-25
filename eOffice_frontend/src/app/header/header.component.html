@@ -29,6 +29,11 @@
             Department List
         </a>
 
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/rooms" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
+            Room Ticket List
+        </a>
+
         <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/tasks" routerLinkActive
             #rla="routerLinkActive" [active]="rla.isActive">
             Task List

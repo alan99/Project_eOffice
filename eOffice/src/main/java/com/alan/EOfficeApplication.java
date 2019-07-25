@@ -36,8 +36,10 @@ public class EOfficeApplication {
 			
 			adminService.authorizeAdminRight(emp);
 
-			Room room = new Room("Big Room", "Training");
+			Room room = new Room("Big Room", "Training", 100);
 			roomRepo.save(room);
+			Room room2 = new Room("Meet Room", "Meeting", 30);
+			roomRepo.save(room2);
 		};
 	}
 }

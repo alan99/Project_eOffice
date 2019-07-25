@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthenticationService } from './authentication.service';
-import { Emp, Dept, Task } from '../model/model.component';
+import { Emp, Dept, Task, Room, RoomTicket } from '../model/model.component';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +73,30 @@ export class HttpClientService {
 
   public deleteTask(task){
     return this.httpClient.delete<Task>(this.url + '/tasks/' + task.taskId);
+  }
+
+
+  public getRooms(){
+    return this.httpClient.get<Room[]>(this.url + '/rooms');
+  }
+
+  public getRoomTickets(){
+    return this.httpClient.get<RoomTicket[]>(this.url + '/tickets');
+  }
+
+  public addRoom(room){
+    return this.httpClient.post<Room>(this.url + '/add-room', room);
+  }
+
+  public sendRoomTicket(ticket){
+    return this.httpClient.post<RoomTicket>(this.url + '/book-room', ticket);
+  }
+
+  public updateRoomTicket(ticket){
+    return this.httpClient.post<RoomTicket>(this.url + '/respond-room-ticket', ticket);
+  }
+
+  public deleteTicket(ticket){
+    return this.httpClient.delete<RoomTicket>(this.url + '/tasks/' + ticket.ticketId);
   }
 }

@@ -106,17 +106,18 @@ public class AdminService {
 	
 	
 	
-	public void updateRoomTicket(RoomTicket ticket) {
+	public RoomTicket updateRoomTicket(RoomTicket ticket) {
 		String updatedStatus = ticket.getStatus();
 		RoomTicket updateTicket = roomTicketRepo.findById(ticket.getTicketId()).orElse(null);
 		updateTicket.setStatus(updatedStatus);
-		roomTicketRepo.save(updateTicket);
 		
 		String receiver = ticket.getEmp().getUsername();
 		String subject = "Status update";
 		String content = "Please check";
 		
 		mailService.autoSendingEmail(receiver, subject, content);
+		
+		return roomTicketRepo.save(updateTicket);
 	}
 	
 	

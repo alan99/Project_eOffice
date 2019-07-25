@@ -108,10 +108,39 @@ public class AdminRestController {
 	
 	//======================================== control room ticket info ================================================
 	
+	@GetMapping("/rooms")
+	public List<Room> findAllRooms(){
+		return roomService.listAllRooms();
+	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/add-room")
+	public Room addRoom(@RequestBody Room room){
+		return roomService.addRoom(room);
+	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/book-room")
+	public RoomTicket bookMeetingRoom(@RequestBody RoomTicket ticket){
+		return roomService.bookRoom(ticket);
+	}
+	
 	@GetMapping("/tickets")
 	public List<RoomTicket> findAllTickets(){
 		return roomService.listAllTickets();
 	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/respond-room-ticket")
+	public RoomTicket respondRoomTicket(@RequestBody RoomTicket ticket){
+		return adminService.updateRoomTicket(ticket);
+	}
+	
+	@DeleteMapping("/tickets/{id}")
+	public ResponseEntity<?> deleteTicketById(@PathVariable long id) {
+		return ResponseEntity.ok(roomService.removeTicket(id));
+	}
+	
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/respond-room-reservation")

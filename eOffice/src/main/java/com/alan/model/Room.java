@@ -16,15 +16,18 @@ public class Room {
 	private String roomName;
 	@Column
 	private String roomType;
+	@Column
+	private int roomCapacity;
 
 	
 	
 	public Room() {}
 
-	public Room(String roomName, String roomType) {
+	public Room(String roomName, String roomType, int roomCapacity) {
 		super();
 		this.roomName = roomName;
 		this.roomType = roomType;
+		this.roomCapacity = roomCapacity;
 	}
 
 	
@@ -51,6 +54,14 @@ public class Room {
 
 	public void setRoomType(String roomType) {
 		this.roomType = roomType;
+	}
+
+	public int getRoomCapacity() {
+		return roomCapacity;
+	}
+
+	public void setRoomCapacity(int roomCapacity) {
+		this.roomCapacity = roomCapacity;
 	}
 	
 	

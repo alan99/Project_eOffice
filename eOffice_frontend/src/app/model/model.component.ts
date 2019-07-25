@@ -25,6 +25,24 @@ export interface Task {
   taskStatus: string;
 }
 
+export interface Room {
+  roomId: number;
+  roomName: string;
+  roomType: string;
+  roomCapacity: number;
+}
+
+export interface RoomTicket {
+  ticketId: number;
+  room: Room;
+  startTime: string;
+  endTime: string;
+  admin: Emp;
+  emp: Emp;
+  description: string;
+  status: string;
+}
+
 @Component({
   selector: 'app-model',
   templateUrl: './model.component.html',

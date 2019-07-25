@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alan.model.*;
 import com.alan.service.DeptService;
 import com.alan.service.EmpService;
+import com.alan.service.RoomService;
 import com.alan.service.TaskService;
 
 @RestController
@@ -29,6 +30,8 @@ public class EmpRestController {
 	private EmpService empService;
 	@Autowired
 	private DeptService deptService;
+	@Autowired
+	private RoomService roomService;
 	
 	
 	@ResponseStatus(HttpStatus.CREATED)
@@ -65,6 +68,16 @@ public class EmpRestController {
 	
 	
 	
+	@GetMapping("/rooms")
+	public List<Room> findAllRooms(@RequestBody Room room){
+		return roomService.listAllRooms();
+	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/book-room")
+	public RoomTicket bookMeetingRoom(@RequestBody RoomTicket ticket){
+		return roomService.bookRoom(ticket);
+	}
 	
 	@GetMapping("/tickets")
 	public List<RoomTicket> findAllEmpTickets(@RequestBody Emp emp){
@@ -74,11 +87,7 @@ public class EmpRestController {
 	
 	
 	
-	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/booking-room")
-	public ResponseEntity<?> bookMeetingRoom(@RequestBody RoomTicket ticket){
-		return empService.bookRoom(ticket);
-	}
+	
 	
 	
 	

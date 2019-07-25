@@ -33,6 +33,10 @@ import { EditDepartmentComponent } from './department/add-department/edit-depart
 import { TaskComponent } from './task/task.component';
 import { AddTaskComponent } from './task/add-task/add-task.component';
 import { DatePipe } from '@angular/common';
+import { RoomComponent } from './room/room.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BookRoomComponent } from './room/book-room/book-room.component';
 
 
 
@@ -52,7 +56,9 @@ import { DatePipe } from '@angular/common';
     TaskComponent,
     RegisterComponent,
     ModelComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    RoomComponent,
+    BookRoomComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +78,8 @@ import { DatePipe } from '@angular/common';
     MatNativeDateModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   entryComponents: [
     EditEmployeeComponent

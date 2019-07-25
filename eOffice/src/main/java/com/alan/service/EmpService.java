@@ -69,34 +69,34 @@ public class EmpService {
     
     
     
-	public ResponseEntity<?> bookRoom(RoomTicket ticket) {
-		
-		Room room = roomRepo.findById(ticket.getRoom().getRoomId()).orElse(null);
-		
-		if (room == null) {
-			return ResponseEntity.ok("There is no this room. Please type again.");
-		} else {
-			boolean availability = roomService.checkAvailability(room, ticket.getStartTime(), ticket.getEndTime());
-
-			if (!availability) {
-				return ResponseEntity.ok("The room is unavailable. Please try the other.");
-			} else {
-				ticket.setRoom(room);
-				Emp emp = empRepo.findById(ticket.getEmp().getEmpId()).orElse(null);		ticket.setEmp(emp);
-				Emp admin = empRepo.findById(ticket.getAdmin().getEmpId()).orElse(null);	ticket.setAdmin(admin);
-				
-				roomTicketRepo.save(ticket);
-				
-				String receiver = ticket.getAdmin().getUsername();
-				String subject = "Room Reservation [" + ticket.getRoom().getRoomName() + "]";
-				String content = "Please check";
-				
-				mailService.autoSendingEmail(receiver, subject, content);
-				
-				return ResponseEntity.ok("Request Delivered!");
-			}
-		}
-	}
+//	public RoomTicket bookRoom(RoomTicket ticket) {
+//		
+//		Room room = roomRepo.findById(ticket.getRoom().getRoomId()).orElse(null);
+//		
+//		if (room == null) {
+//			return null;
+//		} else {
+//			return roomService.bookRoom(ticket);
+//
+////			if (!availability) {
+////				return ResponseEntity.ok("The room is unavailable. Please try the other.");
+////			} else {
+////				ticket.setRoom(room);
+////				Emp emp = empRepo.findById(ticket.getEmp().getEmpId()).orElse(null);		ticket.setEmp(emp);
+////				Emp admin = empRepo.findById(ticket.getAdmin().getEmpId()).orElse(null);	ticket.setAdmin(admin);
+////				
+////				roomTicketRepo.save(ticket);
+////				
+////				String receiver = ticket.getAdmin().getUsername();
+////				String subject = "Room Reservation [" + ticket.getRoom().getRoomName() + "]";
+////				String content = "Please check";
+////				
+////				mailService.autoSendingEmail(receiver, subject, content);
+////				
+////				return ResponseEntity.ok("Request Delivered!");
+////			}
+//		}
+//	}
 	
 	
 	public void leaveMeeting(LeaveMeetingForm form) {
