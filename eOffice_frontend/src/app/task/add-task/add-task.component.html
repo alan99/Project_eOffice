@@ -16,37 +16,37 @@
         </div>
 
 
+        <div>
+            <mat-form-field>
+                <mat-label>Principal Employee</mat-label>
+                <mat-select [(ngModel)]="emp.empId" name="emp">
+                    <mat-option *ngFor="let emp of emps" [value]="emp.empId">
+                        {{emp.f_Name}} {{emp.l_Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-        <mat-form-field>
-            <mat-label>Principal Employee</mat-label>
-            <mat-select [(ngModel)]="emp.empId" name="emp">
-                <mat-option *ngFor="let emp of emps" [value]="emp.empId">
-                    {{emp.f_Name}} {{emp.l_Name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field><br>
+        <div>
+            <mat-form-field>
+                <input matInput [matDatepickerFilter]="myFilter" [min]="minDate" [matDatepicker]="startPicker"
+                    [(ngModel)]="sDate" [ngModelOptions]="{standalone: true}" placeholder="Start Date">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+            <mat-form-field>
+                <input matInput [matDatepickerFilter]="myFilter" [min]="sDate" [matDatepicker]="endPicker"
+                    [(ngModel)]="eDate" [ngModelOptions]="{standalone: true}" placeholder="End Date">
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
 
-        <mat-form-field>
-            <input matInput [matDatepickerFilter]="myFilter" [min]="minDate" [matDatepicker]="startPicker"
-                [(ngModel)]="sDate" [ngModelOptions]="{standalone: true}" placeholder="Start Date">
-            <!-- [formControl]="sDate" placeholder="Choose the start date"> -->
-            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-            <mat-datepicker #startPicker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput [matDatepickerFilter]="myFilter" [min]="sDate" [matDatepicker]="endPicker"
-                [(ngModel)]="eDate" [ngModelOptions]="{standalone: true}" placeholder="End Date">
-            <!-- [formControl]="eDate"  placeholder="Choose the end date"> -->
-            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-            <mat-datepicker #endPicker></mat-datepicker>
-        </mat-form-field>
-
-
-        <div mat-dialog-actions>
-            <button mat-button (click)="createTask()">Send</button>
+        <div mat-dialog-actions align="center">
+            <button mat-raised-button (click)="createTask()">Send</button>
         </div>
     </form>
 </div>

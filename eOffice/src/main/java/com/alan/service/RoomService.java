@@ -38,6 +38,10 @@ public class RoomService {
 	public RoomTicket bookRoom(RoomTicket ticket){
 		
 		ticket.setStatus("Requesting");
+		ticket.setAdmin(empRepo.findById(ticket.getAdmin().getEmpId()).orElse(null));
+		ticket.setEmp(empRepo.findByUsername(ticket.getEmp().getUsername()));
+		ticket.setRoom(roomRepo.findById(ticket.getRoom().getRoomId()).orElse(null));
+		
 		List<RoomTicket> reservations = roomTicketRepo.findByRoom(ticket.getRoom());
 		
 		if (!reservations.isEmpty()) {

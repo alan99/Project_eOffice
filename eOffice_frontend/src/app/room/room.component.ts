@@ -43,7 +43,7 @@ export class RoomComponent implements OnInit {
                               status: ''          }
 
     const dialogRef = this.dialog.open(BookRoomComponent, {
-      width: '450px',
+      width: '550px',
       data: ticket
     });
 

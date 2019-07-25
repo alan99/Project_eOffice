@@ -3,7 +3,7 @@ import { Emp, Room, RoomTicket } from 'src/app/model/model.component';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClientService } from 'src/app/service/http-client.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -32,6 +32,8 @@ export class BookRoomComponent implements OnInit {
               private router:Router,
               private httpClientService:HttpClientService,
               public dialogRef: MatDialogRef<BookRoomComponent>,
+              public dialogWarn: MatDialog,
+              public dialogWarnRef: MatDialogRef<WarningForRebook>,
               @Inject(MAT_DIALOG_DATA) public c_ticket: RoomTicket) { 
                 this.ticket = c_ticket;
 
@@ -116,12 +118,43 @@ export class BookRoomComponent implements OnInit {
     
     this.httpClientService.sendRoomTicket(this.ticket)
     .subscribe(data=>{
-          console.log('Task assigned successfully...');
+          console.log(data);
+          if (data.emp.username != this.ticket.emp.username){
+            this.openWarningWindow(data)  
+          } else {
+            this.dialogRef.close();
+            this.router.navigate(["/rooms"]);
+          }
     })
     
-    this.dialogRef.close();
-    this.router.navigate(["/rooms"]);
   }
+
+  openWarningWindow(respond: RoomTicket): void {
+    const dialogWarnRef = this.dialogWarn.open(WarningForRebook, {
+      width: '350px',
+      data: respond
+    });
+
+    dialogWarnRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+
+@Component({
+  selector: 'app-warn-book-room',
+  templateUrl: './warning-for-rebook.component.html',
+  styleUrls: ['./book-room.component.css']
+})
+export class WarningForRebook {
+  constructor(
+    public dialogRef: MatDialogRef<WarningForRebook>,
+    @Inject(MAT_DIALOG_DATA) public data: RoomTicket) {}
 
   onNoClick(): void {
     this.dialogRef.close();

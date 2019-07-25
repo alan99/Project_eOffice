@@ -51,12 +51,14 @@
 
         <td mat-cell *matCellDef="let task">
             <button mat-raised-button align="right" 
-            *ngIf="loginService.isAdmin()" (click)="respondTask(task)">
+            *ngIf="loginService.isAdmin()" (click)="respondTask(task)"
+            [disabled]="task.taskStatus == 'Approved'" disabled>
                 Approve
             </button>
     
             <button mat-raised-button align="right" 
-            *ngIf="!loginService.isAdmin()" (click)="respondTask(task)">
+            *ngIf="!loginService.isAdmin()" (click)="respondTask(task)"
+            [disabled]="task.taskStatus == 'Finished'" disabled>
                 Finish
             </button>
 

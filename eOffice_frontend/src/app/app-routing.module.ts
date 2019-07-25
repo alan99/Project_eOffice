@@ -11,7 +11,7 @@ import { EditDepartmentComponent } from './department/add-department/edit-depart
 import { TaskComponent } from './task/task.component';
 import { AddTaskComponent } from './task/add-task/add-task.component';
 import { RoomComponent } from './room/room.component';
-import { BookRoomComponent } from './room/book-room/book-room.component';
+import { BookRoomComponent, WarningForRebook } from './room/book-room/book-room.component';
 
 const routes: Routes = [
   {path:'emps',component:EmployeeComponent},
@@ -24,6 +24,7 @@ const routes: Routes = [
   {path:'addtask',component:AddTaskComponent},
   {path:'rooms',component:RoomComponent},
   {path:'bookRoom',component:BookRoomComponent},
+  {path:'WarnForRebook',component:WarningForRebook},
   {path:'login',component:LoginComponent},
   {path:'logout',component:LogoutComponent},
   {path:'register',component:RegisterComponent}

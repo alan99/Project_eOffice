@@ -36,7 +36,7 @@ import { DatePipe } from '@angular/common';
 import { RoomComponent } from './room/room.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BookRoomComponent } from './room/book-room/book-room.component';
+import { BookRoomComponent, WarningForRebook } from './room/book-room/book-room.component';
 
 
 
@@ -58,7 +58,8 @@ import { BookRoomComponent } from './room/book-room/book-room.component';
     ModelComponent,
     AddTaskComponent,
     RoomComponent,
-    BookRoomComponent
+    BookRoomComponent,
+    WarningForRebook
   ],
   imports: [
     BrowserModule,

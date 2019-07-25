@@ -69,7 +69,7 @@ public class EmpRestController {
 	
 	
 	@GetMapping("/rooms")
-	public List<Room> findAllRooms(@RequestBody Room room){
+	public List<Room> findAllRooms(){
 		return roomService.listAllRooms();
 	}
 	
@@ -80,6 +80,11 @@ public class EmpRestController {
 	}
 	
 	@GetMapping("/tickets")
+	public List<RoomTicket> findAllTickets(){
+		return roomService.listAllTickets();
+	}
+	
+	@GetMapping("/my-tickets")
 	public List<RoomTicket> findAllEmpTickets(@RequestBody Emp emp){
 		return empService.listAllRoomTickets(emp);
 	}

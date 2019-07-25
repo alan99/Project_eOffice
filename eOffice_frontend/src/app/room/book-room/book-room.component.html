@@ -2,15 +2,27 @@
     <h2 class="text-center">Assign New Task</h2>
 
     <form>
+        <div fxLayout="row">
+            <mat-form-field>
+                <mat-label>Room</mat-label>
+                <mat-select [(ngModel)]="room.roomId" name="room">
+                    <mat-option *ngFor="let room of rooms" [value]="room.roomId">
+                        {{room.roomName}}, Max: {{room.roomCapacity}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Room</mat-label>
-            <mat-select [(ngModel)]="room.roomId" name="room">
-                <mat-option *ngFor="let room of rooms" [value]="room.roomId">
-                    {{room.roomName}}, Max: {{room.roomCapacity}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <mat-form-field>
+                <mat-label>Manager</mat-label>
+                <mat-select [(ngModel)]="admin.empId" [ngModelOptions]="{standalone: true}" name="admin">
+                    <mat-option *ngFor="let emp of emps" [value]="emp.empId">
+                        {{emp.f_Name}} {{emp.l_Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
         <div class="form-group">
             <label for="description">Description</label>
@@ -18,17 +30,12 @@
                 class="form-control" name="ticket description" id="description"></textarea>
         </div>
 
-        <mat-form-field>
-            <mat-label>Admin</mat-label>
-            <mat-select [(ngModel)]="admin.empId" [ngModelOptions]="{standalone: true}" name="admin">
-                <mat-option *ngFor="let emp of emps" [value]="emp.empId">
-                    {{emp.f_Name}} {{emp.l_Name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field><br>
 
 
-        <div fxLayout="row">
+
+        <div class="row">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
             <mat-form-field>
                 <input matInput [min]="minDate" [matDatepicker]="startPicker" [(ngModel)]="sDate"
                     [ngModelOptions]="{standalone: true}" placeholder="Start Time">
@@ -36,24 +43,31 @@
                 <mat-datepicker #startPicker></mat-datepicker>
             </mat-form-field>
 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
             <ngb-timepicker [(ngModel)]="startTime" [ngModelOptions]="{standalone: true}" [seconds]="false"
-                [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker>
+                [hourStep]="hourStep" [minuteStep]="minuteStep">Start Time</ngb-timepicker>
+
         </div>
 
 
-        <div fxLayout="row">
+        <div class="row">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                
             <mat-form-field>
                 <input matInput [min]="sDate" [matDatepicker]="endPicker" [(ngModel)]="eDate"
                     [ngModelOptions]="{standalone: true}" placeholder="End Time">
                 <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
                 <mat-datepicker #endPicker></mat-datepicker>
             </mat-form-field>
-                
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
             <ngb-timepicker [(ngModel)]="endTime" [ngModelOptions]="{standalone: true}" [seconds]="false"
-                    [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker>
-            
+                [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker>
         </div>
-        <div mat-dialog-actions>
+
+        <div mat-dialog-actions align="center">
             <button mat-raised-button (click)="createTicket()">Send</button>
         </div>
     </form>
