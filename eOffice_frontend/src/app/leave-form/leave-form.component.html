@@ -1,0 +1,63 @@
+<div class="co-md-6">
+    
+
+    <div class="container" align="center">
+        <br>
+        <h2 class="text-center">Leave Form</h2>
+
+        <div class="form-group">
+            <mat-form-field>
+                <mat-label>Type</mat-label>
+                <mat-select [(ngModel)]="form.leaveType" [ngModelOptions]="{standalone: true}" required>
+                    <mat-option *ngFor="let type of leaveTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <mat-form-field>
+                <mat-label>Manager</mat-label>
+                <mat-select [(ngModel)]="admin.empId" [ngModelOptions]="{standalone: true}" name="admin">
+                    <mat-option *ngFor="let emp of emps" [value]="emp.empId">
+                        {{emp.f_Name}} {{emp.l_Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Reason</label>
+            <textarea type="description" [(ngModel)]="form.reason" placeholder="Reason Description"
+                class="form-control" name="form reason" id="reason"></textarea>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <mat-form-field>
+                <input matInput [min]="minDate" [matDatepicker]="startPicker" [(ngModel)]="sDate"
+                    [ngModelOptions]="{standalone: true}" placeholder="Start Time">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-form-field>
+                <input matInput [min]="sDate" [matDatepicker]="endPicker" [(ngModel)]="eDate"
+                    [ngModelOptions]="{standalone: true}" placeholder="End Time">
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+
+        
+
+        <div mat-dialog-actions align="center">
+            <button mat-raised-button (click)="sendForm()" class="btn btn-success">Send</button>
+        </div>
+        <br>
+    </div>
+</div>

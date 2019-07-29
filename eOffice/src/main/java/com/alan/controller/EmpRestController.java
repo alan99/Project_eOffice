@@ -99,9 +99,8 @@ public class EmpRestController {
 	
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/leave-meeting")
-	public ResponseEntity<?> leaveMeeting(@RequestBody LeaveMeetingForm form){
-		empService.leaveMeeting(form);
-		return ResponseEntity.ok("Request for leaving has been sent");
+	@PostMapping("/send-leave-form")
+	public LeaveMeetingForm leaveMeeting(@RequestBody LeaveMeetingForm form){
+		return empService.leaveMeeting(form);
 	}
 }

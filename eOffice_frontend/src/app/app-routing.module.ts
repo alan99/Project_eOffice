@@ -12,6 +12,8 @@ import { TaskComponent } from './task/task.component';
 import { AddTaskComponent } from './task/add-task/add-task.component';
 import { RoomComponent } from './room/room.component';
 import { BookRoomComponent, WarningForRebook } from './room/book-room/book-room.component';
+import { LeaveManagementComponent } from './leave-management/leave-management.component';
+import { LeaveFormComponent } from './leave-form/leave-form.component';
 
 const routes: Routes = [
   {path:'emps',component:EmployeeComponent},
@@ -25,6 +27,8 @@ const routes: Routes = [
   {path:'rooms',component:RoomComponent},
   {path:'bookRoom',component:BookRoomComponent},
   {path:'WarnForRebook',component:WarningForRebook},
+  {path:'leaves',component:LeaveManagementComponent},
+  {path:'addLeave',component:LeaveFormComponent},
   {path:'login',component:LoginComponent},
   {path:'logout',component:LogoutComponent},
   {path:'register',component:RegisterComponent}

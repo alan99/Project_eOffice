@@ -26,17 +26,27 @@
 
         <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/depts" routerLinkActive
             #rla="routerLinkActive" [active]="rla.isActive">
-            Department List
+            Departments
+        </a>
+
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/addLeave" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
+            Submit Leave Form
+        </a>
+
+        <a mat-tab-link *ngIf="loginService.isUserLoggedIn() && loginService.isAdmin()" routerLink="/leaves" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">
+            Leave Management
         </a>
 
         <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/rooms" routerLinkActive
             #rla="routerLinkActive" [active]="rla.isActive">
-            Room Ticket List
+            Room Management
         </a>
 
         <a mat-tab-link *ngIf="loginService.isUserLoggedIn()" routerLink="/tasks" routerLinkActive
             #rla="routerLinkActive" [active]="rla.isActive">
-            Task List
+            Task Management
         </a>
 
         <a mat-tab-link *ngIf="!loginService.isUserLoggedIn()" routerLink="/register" routerLinkActive

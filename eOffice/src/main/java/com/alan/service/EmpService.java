@@ -69,43 +69,16 @@ public class EmpService {
     
     
     
-//	public RoomTicket bookRoom(RoomTicket ticket) {
-//		
-//		Room room = roomRepo.findById(ticket.getRoom().getRoomId()).orElse(null);
-//		
-//		if (room == null) {
-//			return null;
-//		} else {
-//			return roomService.bookRoom(ticket);
-//
-////			if (!availability) {
-////				return ResponseEntity.ok("The room is unavailable. Please try the other.");
-////			} else {
-////				ticket.setRoom(room);
-////				Emp emp = empRepo.findById(ticket.getEmp().getEmpId()).orElse(null);		ticket.setEmp(emp);
-////				Emp admin = empRepo.findById(ticket.getAdmin().getEmpId()).orElse(null);	ticket.setAdmin(admin);
-////				
-////				roomTicketRepo.save(ticket);
-////				
-////				String receiver = ticket.getAdmin().getUsername();
-////				String subject = "Room Reservation [" + ticket.getRoom().getRoomName() + "]";
-////				String content = "Please check";
-////				
-////				mailService.autoSendingEmail(receiver, subject, content);
-////				
-////				return ResponseEntity.ok("Request Delivered!");
-////			}
-//		}
-//	}
+    
 	
-	
-	public void leaveMeeting(LeaveMeetingForm form) {
-		Emp emp= empRepo.findById(form.getEmp().getEmpId()).orElse(null);			form.setEmp(emp);
+	public LeaveMeetingForm leaveMeeting(LeaveMeetingForm form) {
+		Emp emp= empRepo.findByUsername(form.getEmp().getUsername());				form.setEmp(emp);
 		Emp admin = empRepo.findById(form.getAdmin().getEmpId()).orElse(null);		form.setAdmin(admin);
-		
-		leaveMeetingRepo.save(form);
+		form.setRespond("Requesting");
 		
 		message(form, form.getReason(), admin);
+		
+		return leaveMeetingRepo.save(form);
 	}
 	
 	

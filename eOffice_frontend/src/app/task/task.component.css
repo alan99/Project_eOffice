@@ -1,8 +1,13 @@
 table {
-    min-width: 20%;
-  }
+    min-width: 70%;
+    
+}
 
-  .mat-raised-button{
+td {
+  font-size: 12px;
+}
+
+.mat-raised-button{
     background-color:green;
     color: white;
 } 

@@ -43,6 +43,17 @@ export interface RoomTicket {
   status: string;
 }
 
+export interface LeaveForm {
+  formId: number,
+  leaveType: string,
+  startDate: string,
+  endDate: string,
+  reason: string,
+	respond: string,
+  emp: Emp,
+  admin: Emp
+}
+
 @Component({
   selector: 'app-model',
   templateUrl: './model.component.html',

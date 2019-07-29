@@ -49,7 +49,7 @@ public class LeaveMeetingForm {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LeaveMeetingForm(String leaveType, Date startDate, Date endDate, String reason, Emp emp, Emp admin) {
+	public LeaveMeetingForm(String leaveType, Date startDate, Date endDate, String reason, Emp emp, Emp admin, String respond) {
 		super();
 		this.leaveType = leaveType;
 		this.startDate = startDate;
@@ -57,7 +57,7 @@ public class LeaveMeetingForm {
 		this.reason = reason;
 		this.emp = emp;
 		this.admin = admin;
-		this.respond = "Requesting";
+		this.respond = respond;
 	}
 
 	public long getFormId() {

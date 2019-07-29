@@ -35,6 +35,8 @@ public class AdminService {
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
 	
+	
+	
 	public List<Emp> listAllEmps(){
 		return empRepo.findAll();
 	}
@@ -42,8 +44,6 @@ public class AdminService {
 	public Emp addEmp(Emp emp) {
 		Dept dept = deptRepo.findById(emp.getDept().getDeptId()).orElse(null);
 		emp.setDept(dept);
-//		Emp newEmp = new Emp(emp.getF_Name(), emp.getL_Name(), emp.getContactNo(), emp.getUsername(), dept);
-		empRepo.save(emp);
 		
 		String receiver = emp.getUsername();
 		String subject = "Welcome! Please Register";
@@ -51,7 +51,7 @@ public class AdminService {
 		
 		mailService.autoSendingEmail(receiver, subject, content);
 		
-		return emp;
+		return empRepo.save(emp);
 	}
 	
 	public void authorizeAdminRight(Emp emp) {
@@ -78,15 +78,7 @@ public class AdminService {
 		}
 	}
 	
-	public void respondEmpLeave(LeaveMeetingForm form) {
-		LeaveMeetingForm updatedForm = leaveMeetingRepo.findById(form.getFormId()).orElse(null);
-		updatedForm.setRespond(form.getRespond());
-		
-		leaveMeetingRepo.save(updatedForm);
-		
-		String msg = "Your request for leaving is " + updatedForm.getRespond();
-		empService.message(updatedForm, msg, updatedForm.getEmp());
-	}
+	
 	
 	public Emp removeEmp(long id) {
 		Emp emp = empRepo.findById(id).orElse(null);
@@ -123,5 +115,17 @@ public class AdminService {
 	
 	
 	
-	
+	public List<LeaveMeetingForm> listAllLeaving(){
+		return leaveMeetingRepo.findAll();
+	}
+
+	public LeaveMeetingForm respondEmpLeave(LeaveMeetingForm form) {
+		LeaveMeetingForm updatedForm = leaveMeetingRepo.findById(form.getFormId()).orElse(null);
+		updatedForm.setRespond(form.getRespond());
+		
+		String msg = "Your request for leaving is " + form.getRespond();
+		empService.message(updatedForm, msg, updatedForm.getEmp());
+		
+		return leaveMeetingRepo.save(updatedForm);
+	}
 }

@@ -11,6 +11,7 @@ import com.alan.model.*;
 import com.alan.service.RoomService;
 import com.alan.service.AdminService;
 import com.alan.service.DeptService;
+import com.alan.service.EmpService;
 import com.alan.service.TaskService;
 
 @RestController
@@ -25,6 +26,8 @@ public class AdminRestController {
 	@Autowired
 	private AdminService adminService;
 	@Autowired
+	private EmpService empService;
+	@Autowired
 	private RoomService roomService;
 	
 //	========================================== control employee info ============================================
@@ -38,25 +41,18 @@ public class AdminRestController {
 	@PostMapping("/add-emp")
 	public Emp newEmp(@RequestBody Emp emp) {
 		return adminService.addEmp(emp);
-//		return ResponseEntity.ok("saved");
 	}
 	
 	@PutMapping("/update-emp")
-	public ResponseEntity<?> updateEmp(@RequestBody Emp emp) {
-		return ResponseEntity.ok(adminService.updateEmp(emp));
+	public Emp updateEmp(@RequestBody Emp emp) {
+		return adminService.updateEmp(emp);
 	}
 	
 	@DeleteMapping("/update-emp/{id}")
-	public ResponseEntity<?> deleteEmpById(@PathVariable long id) {
-		return ResponseEntity.ok(adminService.removeEmp(id));
+	public Emp deleteEmpById(@PathVariable long id) {
+		return adminService.removeEmp(id);
 	}
 	
-	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("/respond-emp-leave")
-	public ResponseEntity<?> respondEmpLeave(@RequestBody LeaveMeetingForm form){
-		adminService.respondEmpLeave(form);
-		return ResponseEntity.ok("Respond Sent!");
-	}
 	
 //	========================================== control department info ============================================
 	
@@ -77,8 +73,6 @@ public class AdminRestController {
 	@PutMapping("/update-dept")
 	public Dept updateDept(@RequestBody Dept dept) {
 		return deptService.updateDept(dept);
-		
-//		return ResponseEntity.ok("The information of dept is updated.");
 	}
 	
 	//======================================== control task info ================================================
@@ -102,8 +96,8 @@ public class AdminRestController {
 	}
 	
 	@DeleteMapping("/tasks/{id}")
-	public ResponseEntity<?> deleteTaskById(@PathVariable long id) {
-		return ResponseEntity.ok(taskService.removeTask(id));
+	public Task deleteTaskById(@PathVariable long id) {
+		return taskService.removeTask(id);
 	}
 	
 	//======================================== control room ticket info ================================================
@@ -137,8 +131,8 @@ public class AdminRestController {
 	}
 	
 	@DeleteMapping("/tickets/{id}")
-	public ResponseEntity<?> deleteTicketById(@PathVariable long id) {
-		return ResponseEntity.ok(roomService.removeTicket(id));
+	public RoomTicket deleteTicketById(@PathVariable long id) {
+		return roomService.removeTicket(id);
 	}
 	
 	
@@ -152,10 +146,24 @@ public class AdminRestController {
 	
 	
 	
-	//========================================================================================
+	//========================================= Leave Management ===============================================
 	
+	@GetMapping("/leave-forms")
+	public List<LeaveMeetingForm> findAllForms(){
+		return adminService.listAllLeaving();
+	}
 	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/send-leave-form")
+	public LeaveMeetingForm leaveMeeting(@RequestBody LeaveMeetingForm form){
+		return empService.leaveMeeting(form);
+	}
 	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping("/respond-leave-form")
+	public LeaveMeetingForm respondEmpLeave(@RequestBody LeaveMeetingForm form){
+		return adminService.respondEmpLeave(form);
+	}
 	
 //	@GetMapping("/check-emp/{empId}")
 //	public String findEmpById(@PathVariable Long empId){

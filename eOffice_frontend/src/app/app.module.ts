@@ -16,7 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component'
 import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
 
-import { MatDialogModule, MatButtonModule, MatSortModule, MatDatepickerModule, MatNativeDateModule, MatToolbarModule } from '@angular/material';
+import { MatDialogModule, MatButtonModule, MatSortModule, MatDatepickerModule, MatNativeDateModule, MatToolbarModule, MatButtonToggleModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,6 +37,8 @@ import { RoomComponent } from './room/room.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookRoomComponent, WarningForRebook } from './room/book-room/book-room.component';
+import { LeaveManagementComponent } from './leave-management/leave-management.component';
+import { LeaveFormComponent } from './leave-form/leave-form.component';
 
 
 
@@ -59,7 +61,9 @@ import { BookRoomComponent, WarningForRebook } from './room/book-room/book-room.
     AddTaskComponent,
     RoomComponent,
     BookRoomComponent,
-    WarningForRebook
+    WarningForRebook,
+    LeaveManagementComponent,
+    LeaveFormComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +79,7 @@ import { BookRoomComponent, WarningForRebook } from './room/book-room/book-room.
     MatTableModule,
     MatSortModule,
     MatIconModule,
+    MatButtonToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatToolbarModule,

@@ -47,8 +47,8 @@ public class RoomService {
 		if (!reservations.isEmpty()) {
 			for (RoomTicket reservation:reservations) {
 				if (reservation.getEmp() != ticket.getEmp() && reservation.getStatus().equals("Approved") 
-					&& ( (ticket.getStartTime().compareTo(reservation.getStartTime())>=0 && ticket.getStartTime().compareTo(reservation.getEndTime())<=0)
-					||   (reservation.getStartTime().compareTo(ticket.getStartTime())>=0 && reservation.getStartTime().compareTo(ticket.getEndTime())<=0)	)
+					&& ( (ticket.getStartTime().compareTo(reservation.getStartTime())>=0 && ticket.getStartTime().compareTo(reservation.getEndTime())<0)
+					||   (reservation.getStartTime().compareTo(ticket.getStartTime())>=0 && reservation.getStartTime().compareTo(ticket.getEndTime())<0)	)
 					)
 				{		
 					return reservation;	
