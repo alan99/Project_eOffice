@@ -56,7 +56,10 @@
         
 
         <div mat-dialog-actions align="center">
-            <button mat-raised-button (click)="sendForm()" class="btn btn-success">Send</button>
+            <button mat-raised-button (click)="sendForm()" class="btn btn-success"
+            [disabled]="form.leaveType == '' || form.reason == '' || admin.empId == 0" disabled>
+                Send
+            </button>
         </div>
         <br>
     </div>

@@ -9,7 +9,10 @@
         </div><br>
 
         <div mat-dialog-actions align="center">
-            <button mat-raised-button (click)="createDept()">Add</button>
+            <button mat-raised-button (click)="createDept()" 
+            [disabled]="dept.deptName == ''" disabled>
+                Add
+            </button>
         </div>
     </form>
 </div>

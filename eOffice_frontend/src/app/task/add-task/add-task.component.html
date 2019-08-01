@@ -46,7 +46,10 @@
         </div>
 
         <div mat-dialog-actions align="center">
-            <button mat-raised-button (click)="createTask()">Send</button>
+            <button mat-raised-button (click)="createTask()"
+            [disabled]="task.taskName == '' || task.taskText == '' || emp.empId == 0" disabled>
+                Send
+            </button>
         </div>
     </form>
 </div>

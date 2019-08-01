@@ -37,7 +37,6 @@
 
         <td mat-cell *matCellDef="let form">
             <mat-select [(ngModel)]="form.respond" required>
-                <mat-option>--</mat-option>
                 <mat-option *ngFor="let act of actions" [value]="act">
                     {{act}}
                 </mat-option>
@@ -49,8 +48,8 @@
     <ng-container matColumnDef="confirm">
         <th mat-header-cell *matHeaderCellDef> Confirm </th>
         <td mat-cell *matCellDef="let form">
-            <button mat-raised-button align="right" (click)="respondForm(form)" class="btn btn-success">
-                <!-- [disabled]="form.respond != 'Requesting' && act != '--'" disabled> -->
+            <button mat-raised-button align="right" (click)="respondForm(form)" class="btn btn-success"
+                [disabled]="form.respond != 'Approved' && form.respond != 'Rejected'" disabled>
                 Confirm
             </button>
         </td>

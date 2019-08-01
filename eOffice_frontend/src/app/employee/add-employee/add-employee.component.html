@@ -48,7 +48,10 @@
         </mat-form-field><br>
 
         <div mat-dialog-actions align="center">
-            <button mat-raised-button (click)="createEmp()">Create</button>
+            <button mat-raised-button (click)="createEmp()"
+            [disabled]="emp.f_Name == '' || emp.l_Name == '' || emp.username == ''" disabled>
+                Create
+            </button>
         </div>
     </form>
 </div>

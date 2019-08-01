@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
+import { WeatherApiService, WeatherResponse } from '../service/weather-api.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,24 @@ import { AuthenticationService } from '../service/authentication.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private loginService:AuthenticationService) { }
+  c_weather: WeatherResponse;
+
+  constructor(private loginService: AuthenticationService,
+    private weatherService: WeatherApiService) { }
 
   ngOnInit() {
+    // this.weatherService.getWeather().subscribe(response => {
+      
+    //     this.c_weather = response.body;
+      
+    //    console.log('testtest'); 
+    // }
+    // );
+  }
+
+  successResponse(response) {
+    console.log(22, response);
+    this.c_weather = response;
   }
 
 }

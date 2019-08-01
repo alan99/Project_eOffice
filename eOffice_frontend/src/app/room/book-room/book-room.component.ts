@@ -67,7 +67,10 @@ export class BookRoomComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.httpClientService.getEmps().subscribe(response => this.successEmpResponse(response));
+    this.httpClientService.getEmps().subscribe(response => {
+      this.successEmpResponse(response);
+      console.log('112112');
+    });
     this.httpClientService.getRooms().subscribe(response => this.successRoomResponse(response));
   }
   
